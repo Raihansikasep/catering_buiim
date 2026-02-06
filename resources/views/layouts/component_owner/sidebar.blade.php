@@ -42,7 +42,17 @@
               <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Profile</span>
             </a>
           </li>
-
+           <li class="mt-0.5 w-full">
+            <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="./pages/profile.html">
+              <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit"
+                class="bg-gradient-to-tl from-red-600 to-red-600 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
+                Logout
+            </button>
+        </form>
+            </a>
+          </li>
         </ul>
       </div>
     </aside>

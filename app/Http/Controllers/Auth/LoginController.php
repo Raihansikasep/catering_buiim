@@ -8,17 +8,19 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 class LoginController extends Controller
 {
     protected function authenticated($request, $user)
-    {
-        if ($user->role === 'admin') {
-            return redirect('/ketua');
-        }
-
-        if ($user->role === 'owner') {
-            return redirect('/owner');
-        }
-
-        return redirect('/');
+{
+    if ($user->role === 'admin') {
+        return redirect('/admin/dashboard');
     }
+
+    if ($user->role === 'owner') {
+        return redirect('/owner/dashboard');
+    }
+
+    return redirect('/'); // pelanggan
+}
+
+
 
 
     use AuthenticatesUsers;
@@ -28,7 +30,6 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.

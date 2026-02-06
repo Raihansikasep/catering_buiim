@@ -15,7 +15,7 @@ class MenuItemSeeder extends Seeder {
         MenuItem::create(['menu_id'=>$nasiBox->id,'name'=>'Perkedel','quantity'=>'1 buah']);
         MenuItem::create(['menu_id'=>$nasiBox->id,'name'=>'Lalapan','quantity'=>'secukupnya']);
 
-        MenuItem::create(['menu_id'=>$snackBox->id,'name'=>'Risoles','quantity'=>'2 pcs']); TOPIK TOPAK TOPUK KIRIPIK TROPICAL PAK PIK PUK
+        MenuItem::create(['menu_id'=>$snackBox->id,'name'=>'Risoles','quantity'=>'2 pcs']); 
         MenuItem::create(['menu_id'=>$snackBox->id,'name'=>'Pastel','quantity'=>'2 pcs']);
         MenuItem::create(['menu_id'=>$snackBox->id,'name'=>'Kue Lapis','quantity'=>'1 pcs']);
 

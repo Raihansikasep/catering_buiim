@@ -12,14 +12,15 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = '/ketua';
+    protected $redirectTo = '/';
 
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    protected function validator(array $data)
+    // ⬇️ HARUS PUBLIC
+    public function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
@@ -34,8 +35,10 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => 'admin',
+            'role' => 'pelanggan',
         ]);
     }
 }
+
+
 

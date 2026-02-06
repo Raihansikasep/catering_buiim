@@ -23,6 +23,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit"
+                class="bg-gradient-to-tl from-red-600 to-red-600 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
+                Logout
+            </button>
+        </form>
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="about.html" class="nav-item nav-link">About Us</a>
                     <a href="product.html" class="nav-item nav-link">Products</a>

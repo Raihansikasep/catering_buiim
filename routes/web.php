@@ -17,19 +17,43 @@ Route::get('/', function () {
     return view('pelanggan.index');
 });
 
-Route::get('/ketua', [AdminController::class, 'index'])->name('admin.index');
-Route::get('/owner', [OwnerController::class, 'index'])->name('dahsboard_owner');
+// Route::get('/ketua', [AdminController::class, 'index'])->name('admin.index');
+// Route::get('/owner', [OwnerController::class, 'index'])->name('dahsboard_owner');
 
 
-Route::resource('categories', CategoryController::class);
-Route::resource('menus', MenuController::class);
-Route::resource('menu-items', MenuItemController::class);
-Route::resource('menu-variants', MenuVariantController::class);
-Route::resource('orders', OrderController::class);
-Route::resource('order-schedules', OrderScheduleController::class);
-Route::resource('expense-categories', ExpenseCategoryController::class);
-Route::resource('expenses', ExpenseController::class);
+// Route::resource('categories', CategoryController::class);
+// Route::resource('menus', MenuController::class);
+// Route::resource('menu-items', MenuItemController::class);
+// Route::resource('menu-variants', MenuVariantController::class);
+// Route::resource('orders', OrderController::class);
+// Route::resource('order-schedules', OrderScheduleController::class);
+// Route::resource('expense-categories', ExpenseCategoryController::class);
+// Route::resource('expenses', ExpenseController::class);
 
+Route::prefix('admin')
+    ->middleware(['auth', 'role:admin'])
+    ->group(function () {
+
+        Route::get('/dashboard', [AdminController::class, 'index'])
+            ->name('admin.index'); // ✅ TAMBAH INI
+
+        Route::resource('categories', CategoryController::class);
+        Route::resource('menus', MenuController::class);
+        Route::resource('menu-items', MenuItemController::class);
+        Route::resource('menu-variants', MenuVariantController::class);
+        Route::resource('orders', OrderController::class);
+        Route::resource('order-schedules', OrderScheduleController::class);
+        Route::resource('expense-categories', ExpenseCategoryController::class);
+        Route::resource('expenses', ExpenseController::class);
+    });
+
+
+Route::prefix('owner')
+    ->middleware(['auth', 'role:owner'])
+    ->group(function () {
+
+        Route::get('/dashboard', [OwnerController::class, 'index']);
+    });
 
 
 
