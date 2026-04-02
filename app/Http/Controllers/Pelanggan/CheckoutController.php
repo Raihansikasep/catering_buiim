@@ -22,53 +22,50 @@ class CheckoutController extends Controller
     public function process(Request $request)
     {
         $request->validate([
-            'customer_name'    => 'required',
-            'customer_phone'   => 'required',
-            'customer_address' => 'required',
+            'customer_name'    => 'required|string|max:255',
+            'customer_phone'   => 'required|string|max:20',
+            'customer_address' => 'required|string',
             'schedule_date'    => 'required|date',
+            'notes'            => 'nullable|string',
         ]);
 
         $cart = session()->get('cart', []);
 
-        // 🔥 ambil item yang dipilih saja
-        $selectedItems = array_filter($cart, function($item){
+        $selectedItems = array_filter($cart, function ($item) {
             return isset($item['selected']) && $item['selected'] == true;
         });
 
-        if(empty($selectedItems)){
-            return back()->with('error', 'Pilih minimal 1 produk dulu!');
+        if (empty($selectedItems)) {
+            return back()->withInput()
+                ->with('error', 'Pilih minimal 1 produk dulu!');
         }
 
-        // 🔥 validasi tanggal
-        $today = Carbon::today();
+        $today        = Carbon::today();
         $scheduleDate = Carbon::parse($request->schedule_date);
 
         if ($scheduleDate->lessThan($today)) {
-            return back()->with('error', 'Tanggal acara tidak boleh di masa lalu!');
+            return back()->withInput()
+                ->with('error', 'Tanggal acara tidak boleh di masa lalu!');
         }
 
         if ($scheduleDate->lessThan($today->copy()->addDays(2))) {
-            return back()->with('error', 'Minimal pemesanan H-2 sebelum acara!');
+            return back()->withInput()
+                ->with('error', 'Minimal pemesanan H-2 sebelum acara!');
         }
 
-        // 🔥 cek jadwal bentrok
         $existing = OrderSchedule::whereDate('schedule_date', $scheduleDate)->exists();
-
         if ($existing) {
-            return back()->with('error', 'Tanggal tersebut sudah dipesan!');
+            return back()->withInput()
+                ->with('error', 'Tanggal tersebut sudah dipesan, silakan pilih tanggal lain!');
         }
 
-        // =========================
-        // 🔥 CREATE ORDER
-        // =========================
+        // CREATE ORDER + SCHEDULE
         foreach ($selectedItems as $key => $item) {
-
-            // wajib pakai variant dari cart
             $variant = MenuVariant::find($item['variant_id']);
-
             if (!$variant) continue;
 
-            Order::create([
+            $order = Order::create([
+                'user_id'         => auth()->id(), // tambahkan ini
                 'menu_variant_id' => $variant->id,
                 'customer_name'   => $request->customer_name,
                 'customer_phone'  => $request->customer_phone,
@@ -76,31 +73,34 @@ class CheckoutController extends Controller
                 'quantity'        => $item['qty'],
                 'order_date'      => now(),
                 'status'          => 'menunggu',
-                'total_price'     => $variant->price * $item['qty'],
+                'total_price'     => $item['price'] * $item['qty'],
                 'notes'           => $request->notes,
+            ]);
+
+            OrderSchedule::create([
+                'order_id'      => $order->id,
+                'schedule_date' => $request->schedule_date,
+                'status'        => 'belum',
             ]);
         }
 
-        // =========================
-        // 🔥 CLEAR CART
-        // =========================
+        // CLEAR SELECTED ITEMS FROM CART
         foreach ($selectedItems as $key => $item) {
             unset($cart[$key]);
         }
-
         session()->put('cart', $cart);
 
-        return redirect()->route('home')->with('success', 'Checkout berhasil!');
+        return redirect()->route('my.orders')
+            ->with('success', 'Checkout berhasil! Pesanan kamu sedang diproses.');
     }
 
     public function checkSchedule(Request $request)
     {
-        $date = $request->date;
-
+        $date   = $request->date;
         $exists = OrderSchedule::whereDate('schedule_date', $date)->exists();
 
         return response()->json([
-            'available' => !$exists
+            'available' => !$exists,
         ]);
     }
 }

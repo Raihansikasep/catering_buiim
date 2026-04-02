@@ -12,7 +12,11 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return view('pelanggan.profile');
+            $orders = \App\Models\Order::where('user_id', auth()->id())
+                ->latest()
+                ->get();
+
+            return view('pelanggan.profile', compact('orders'));
     }
 
     public function update(Request $request)

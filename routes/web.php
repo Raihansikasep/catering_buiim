@@ -27,7 +27,7 @@ use App\Http\Controllers\Owner\OrderController as OwnerOrderController;
 
 /*
 |--------------------------------------------------------------------------
-| PUBLIC (BISA DIAKSES TANPA LOGIN)
+| PUBLIC
 |--------------------------------------------------------------------------
 */
 
@@ -52,7 +52,6 @@ Route::get('/testimonial', function () {
 Route::get('/contact', function () {
     return view('pelanggan.contact');
 })->name('contact');
-Route::get('/check-schedule', [\App\Http\Controllers\Pelanggan\CheckoutController::class, 'checkSchedule']);
 
 /*
 |--------------------------------------------------------------------------
@@ -60,19 +59,12 @@ Route::get('/check-schedule', [\App\Http\Controllers\Pelanggan\CheckoutControlle
 |--------------------------------------------------------------------------
 */
 
-
-
-
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/profile', [ProfileController::class, 'index'])
-        ->name('profile');
-
-    Route::post('/profile/update', [ProfileController::class, 'update'])
-    ->name('profile.update');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::get('/product', [ProductController::class, 'index'])->name('product');
-
     Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.detail');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
@@ -84,14 +76,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
     Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 
+    // ✅ TAMBAH INI — pindah ke dalam group auth & diberi name
+    Route::get('/checkout/check-schedule', [CheckoutController::class, 'checkSchedule'])
+        ->name('checkout.check-schedule');
+
     Route::get('/my-orders', [App\Http\Controllers\Pelanggan\OrderController::class, 'index'])
         ->name('my.orders');
-
     Route::get('/my-orders/{id}', [App\Http\Controllers\Pelanggan\OrderController::class, 'show'])
         ->name('my.orders.detail');
 
 });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -100,7 +94,6 @@ Route::middleware(['auth'])->group(function () {
 */
 
 Auth::routes();
-
 
 /*
 |--------------------------------------------------------------------------
@@ -113,8 +106,7 @@ Route::prefix('admin')
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/dashboard', [AdminController::class, 'index'])
-            ->name('dashboard');
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
         Route::resource('categories', CategoryController::class);
         Route::resource('menus', MenuController::class);
@@ -130,7 +122,6 @@ Route::prefix('admin')
         Route::resource('menu-addons', MenuAddonController::class);
     });
 
-
 /*
 |--------------------------------------------------------------------------
 | OWNER ROUTES
@@ -142,8 +133,7 @@ Route::prefix('owner')
     ->name('owner.')
     ->group(function () {
 
-        Route::get('/dashboard', [OwnerController::class, 'index'])
-            ->name('dashboard');
+        Route::get('/dashboard', [OwnerController::class, 'index'])->name('dashboard');
 
         Route::resource('orders', OwnerOrderController::class);
     });

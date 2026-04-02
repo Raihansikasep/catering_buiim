@@ -85,9 +85,9 @@
                 <label class="inline-block mb-2 ml-1 font-bold text-xs">
                   Deskripsi
                 </label>
-                <input type="text" name="description"
-                       value="{{ old('description', $menu->description) }}"
-                       class="block w-full px-3 py-2 border rounded-lg">
+                <textarea name="description"
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          rows="6">{{ old('description', $menu->description ?? '') }}</textarea>
               </div>
             </div>
 

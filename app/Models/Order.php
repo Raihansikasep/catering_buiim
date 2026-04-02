@@ -7,9 +7,17 @@ class Order extends Model {
     use HasFactory;
 
     protected $fillable = [
-        'menu_variant_id','customer_name','customer_phone',
-        'customer_address','quantity','order_date','status',
-        'total_price','notes','payment_proof'
+        'user_id',
+        'menu_variant_id',
+        'customer_name',
+        'customer_phone',
+        'customer_address',
+        'quantity',
+        'order_date',
+        'status',
+        'total_price',
+        'notes',
+        'payment_proof',
     ];
 
     public function variant() {

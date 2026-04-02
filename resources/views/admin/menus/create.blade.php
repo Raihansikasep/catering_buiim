@@ -76,8 +76,8 @@
             <div class="w-full px-3 mt-4">
               <label class="block mb-2 text-xs font-bold">Deskripsi</label>
               <textarea name="description"
-                        class="w-full px-3 py-2 border rounded-lg"
-                        rows="3"></textarea>
+          class="w-full px-3 py-2 border rounded-lg"
+          rows="6"></textarea>
             </div>
 
 

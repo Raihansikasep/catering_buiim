@@ -55,7 +55,7 @@
           <td>{{ $menu->max_order }}</td>
 
           <td class="px-6 py-3 text-sm">
-            {{ Str::limit($menu->description, 50) }}
+            {{ Str::limit($menu->description, 30) }}
           </td>
 
           <td class="px-6 py-3 text-center">

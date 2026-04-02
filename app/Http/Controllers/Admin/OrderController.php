@@ -8,7 +8,6 @@ use App\Models\OrderSchedule;
 use App\Models\MenuVariant;
 use Illuminate\Http\Request;
 
-
 class OrderController extends Controller
 {
     public function index()
@@ -23,10 +22,8 @@ class OrderController extends Controller
     public function create()
     {
         $variants = MenuVariant::with('menu')->get();
-
         return view('admin.orders.create', compact('variants'));
     }
-
 
     public function store(Request $request)
     {
@@ -37,22 +34,20 @@ class OrderController extends Controller
             'customer_address'=> 'required|string',
             'quantity'        => 'required|integer|min:1',
             'order_date'      => 'required|date',
-            'status'          => 'required',
+            'status'          => 'required|in:menunggu,sudah_bayar,sedang_diproses,siap_dikirim,selesai',
             'schedule_date'   => 'required|date',
             'notes'           => 'nullable|string',
             'payment_proof'   => 'nullable|image|max:2048',
         ]);
 
-        $variant = MenuVariant::findOrFail($request->menu_variant_id);
+        $variant = MenuVariant::with('menu')->findOrFail($request->menu_variant_id);
 
-        // upload bukti
         $paymentPath = null;
         if ($request->hasFile('payment_proof')) {
             $paymentPath = $request->file('payment_proof')
-                ->store('payment_proofs','public');
+                ->store('payment_proofs', 'public');
         }
 
-        // ORDER
         $order = Order::create([
             'menu_variant_id' => $request->menu_variant_id,
             'customer_name'   => $request->customer_name,
@@ -61,12 +56,12 @@ class OrderController extends Controller
             'quantity'        => $request->quantity,
             'order_date'      => $request->order_date,
             'status'          => $request->status,
-            'total_price'     => $variant->price * $request->quantity,
+            // ✅ GANTI $variant->price → $variant->menu->price
+            'total_price'     => $variant->menu->price * $request->quantity,
             'notes'           => $request->notes,
             'payment_proof'   => $paymentPath,
         ]);
 
-        // ORDER SCHEDULE
         OrderSchedule::create([
             'order_id'      => $order->id,
             'schedule_date' => $request->schedule_date,
@@ -74,27 +69,21 @@ class OrderController extends Controller
         ]);
 
         return redirect()->route('admin.orders.index')
-            ->with('success','Order berhasil ditambahkan');
+            ->with('success', 'Order berhasil ditambahkan');
     }
 
     public function show(Order $order)
     {
-        // Load relasi variant, menu, dan schedule
         $order->load(['variant.menu', 'schedule']);
-
         return view('admin.orders.show', compact('order'));
     }
 
     public function edit(Order $order)
     {
         $variants = MenuVariant::with('menu')->get();
-
-        // PASTIKAN RELASI DILOAD
         $order->load('schedule');
-
-        return view('admin.orders.edit', compact('order','variants'));
+        return view('admin.orders.edit', compact('order', 'variants'));
     }
-
 
     public function update(Request $request, Order $order)
     {
@@ -105,44 +94,65 @@ class OrderController extends Controller
             'customer_address'=> 'required|string',
             'quantity'        => 'required|integer|min:1',
             'order_date'      => 'required|date',
-            'status'          => 'required',
+            'status'          => 'required|in:menunggu,sudah_bayar,sedang_diproses,siap_dikirim,selesai',
             'schedule_date'   => 'required|date',
             'notes'           => 'nullable|string',
             'payment_proof'   => 'nullable|image|max:2048',
         ]);
 
-        $variant = MenuVariant::findOrFail($request->menu_variant_id);
+        $variant = MenuVariant::with('menu')->findOrFail($request->menu_variant_id);
 
-        $data = $request->except('payment_proof');
-        $data['total_price'] = $variant->price * $request->quantity;
+        $data = $request->only([
+            'menu_variant_id',
+            'customer_name',
+            'customer_phone',
+            'customer_address',
+            'quantity',
+            'order_date',
+            'status',
+            'notes',
+        ]);
+
+        // ✅ GANTI $variant->price → $variant->menu->price
+        $data['total_price'] = $variant->menu->price * $request->quantity;
 
         if ($request->hasFile('payment_proof')) {
+            // hapus file lama
+            if ($order->payment_proof) {
+                \Storage::disk('public')->delete($order->payment_proof);
+            }
             $data['payment_proof'] = $request->file('payment_proof')
-                ->store('payment_proofs','public');
+                ->store('payment_proofs', 'public');
         }
 
         $order->update($data);
 
-        $order->schedule->update([
-            'schedule_date' => $request->schedule_date,
-        ]);
+        // update atau buat schedule jika belum ada
+        if ($order->schedule) {
+            $order->schedule->update([
+                'schedule_date' => $request->schedule_date,
+            ]);
+        } else {
+            OrderSchedule::create([
+                'order_id'      => $order->id,
+                'schedule_date' => $request->schedule_date,
+                'status'        => 'belum',
+            ]);
+        }
 
         return redirect()->route('admin.orders.index')
-            ->with('success','Order berhasil diupdate');
+            ->with('success', 'Order berhasil diupdate');
     }
 
     public function destroy(Order $order)
     {
-        // Hapus bukti pembayaran jika ada
         if ($order->payment_proof && \Storage::disk('public')->exists($order->payment_proof)) {
             \Storage::disk('public')->delete($order->payment_proof);
         }
 
-        // Hapus order sekaligus schedule karena ada cascade di migration
         $order->delete();
 
         return redirect()->route('admin.orders.index')
             ->with('success', 'Order berhasil dihapus');
     }
-
 }

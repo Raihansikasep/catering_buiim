@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 @section('content')
 
-<form action="{{ route('admin.orders.update',$order->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.orders.update', $order->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 
@@ -11,16 +11,16 @@
       <div class="relative flex flex-col bg-white shadow-xl rounded-2xl">
 
         {{-- HEADER --}}
-         <div class="p-6 pb-0">
+        <div class="p-6 pb-0">
           <div class="flex items-center">
-            <h2 class="mb-0">Detail Order</h2>
+            <h2 class="mb-0">Edit Order</h2>
             <a href="{{ route('admin.orders.index') }}"
                class="ml-auto px-8 py-2 text-xs font-bold text-white bg-blue-500 rounded-lg">
               Kembali
             </a>
           </div>
         </div>
-        
+
         {{-- BODY --}}
         <div class="p-6">
           <div class="flex flex-wrap -mx-3">
@@ -32,7 +32,8 @@
                 @foreach($variants as $v)
                   <option value="{{ $v->id }}"
                     {{ $order->menu_variant_id == $v->id ? 'selected' : '' }}>
-                    {{ $v->menu->name }} - {{ $v->name }}
+                    {{-- ✅ GANTI $v->name → $v->name_variant & $v->name_item --}}
+                    {{ $v->menu->name }} - {{ $v->name_variant }} ({{ $v->name_item }})
                   </option>
                 @endforeach
               </select>
@@ -43,6 +44,7 @@
               <label class="block mb-2 text-xs font-bold">Quantity</label>
               <input type="number" name="quantity"
                      value="{{ $order->quantity }}"
+                     min="1"
                      class="w-full px-3 py-2 border rounded-lg">
             </div>
 
@@ -84,21 +86,50 @@
                      class="w-full px-3 py-2 border rounded-lg">
             </div>
 
-            {{-- STATUS --}}
+            {{-- STATUS ORDER --}}
             <div class="w-full px-3 mt-4 md:w-6/12">
-              <label class="block mb-2 text-xs font-bold">Status</label>
+              <label class="block mb-2 text-xs font-bold">Status Order</label>
+              {{-- ✅ SESUAIKAN DENGAN ENUM DI MIGRATION --}}
               <select name="status" class="w-full px-3 py-2 border rounded-lg">
-                <option value="menunggu" {{ $order->status=='menunggu'?'selected':'' }}>Menunggu</option>
-                <option value="diproses" {{ $order->status=='diproses'?'selected':'' }}>Diproses</option>
-                <option value="selesai" {{ $order->status=='selesai'?'selected':'' }}>Selesai</option>
+                <option value="menunggu"
+                  {{ $order->status == 'menunggu' ? 'selected' : '' }}>
+                  Menunggu
+                </option>
+                <option value="sudah_bayar"
+                  {{ $order->status == 'sudah_bayar' ? 'selected' : '' }}>
+                  Sudah Bayar
+                </option>
+                <option value="sedang_diproses"
+                  {{ $order->status == 'sedang_diproses' ? 'selected' : '' }}>
+                  Sedang Diproses
+                </option>
+                <option value="siap_dikirim"
+                  {{ $order->status == 'siap_dikirim' ? 'selected' : '' }}>
+                  Siap Dikirim
+                </option>
+                <option value="selesai"
+                  {{ $order->status == 'selesai' ? 'selected' : '' }}>
+                  Selesai
+                </option>
               </select>
             </div>
 
-            {{-- BUKTI --}}
+            {{-- BUKTI PEMBAYARAN --}}
             <div class="w-full px-3 mt-4 md:w-6/12">
               <label class="block mb-2 text-xs font-bold">Bukti Pembayaran</label>
+              @if($order->payment_proof)
+                <div class="mb-2">
+                  <img src="{{ asset('storage/' . $order->payment_proof) }}"
+                       alt="Bukti"
+                       class="rounded"
+                       style="max-width:120px;">
+                  <small class="block text-gray-500 mt-1">Bukti saat ini</small>
+                </div>
+              @endif
               <input type="file" name="payment_proof"
+                     accept="image/*"
                      class="w-full px-3 py-2 border rounded-lg">
+              <small class="text-gray-400">Kosongkan jika tidak ingin mengubah</small>
             </div>
 
             {{-- CATATAN --}}
@@ -113,7 +144,7 @@
             <div class="w-full px-3 mt-6">
               <button type="submit"
                       class="px-8 py-2 text-xs font-bold text-white bg-blue-500 rounded-lg">
-                Update
+                Update Order
               </button>
             </div>
 

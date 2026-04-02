@@ -19,7 +19,8 @@ class OrderScheduleController extends Controller
 
     public function create()
     {
-        $orders = Order::with('admin.variant.menu')->get();
+        // ✅ GANTI: 'admin.variant.menu' → 'variant.menu'
+        $orders = Order::with('variant.menu')->get();
         return view('admin.order_schedules.create', compact('orders'));
     }
 
@@ -33,7 +34,7 @@ class OrderScheduleController extends Controller
 
         OrderSchedule::create($request->all());
 
-        return redirect()->route('order-schedules.index')
+        return redirect()->route('admin.order-schedules.index')
             ->with('success', 'Order schedule berhasil ditambahkan');
     }
 
@@ -45,8 +46,9 @@ class OrderScheduleController extends Controller
 
     public function edit(OrderSchedule $orderSchedule)
     {
-        $orders = Order::with('admin.variant.menu')->get();
-        return view('admin.order_schedules.edit', compact('orderSchedule','orders'));
+        // ✅ GANTI: 'admin.variant.menu' → 'variant.menu'
+        $orders = Order::with('variant.menu')->get();
+        return view('admin.order_schedules.edit', compact('orderSchedule', 'orders'));
     }
 
     public function update(Request $request, OrderSchedule $orderSchedule)
@@ -59,14 +61,15 @@ class OrderScheduleController extends Controller
 
         $orderSchedule->update($request->all());
 
-        return redirect()->route('order-schedules.index')
+        return redirect()->route('admin.order-schedules.index')
             ->with('success', 'Order schedule berhasil diupdate');
     }
 
     public function destroy(OrderSchedule $orderSchedule)
     {
         $orderSchedule->delete();
-        return redirect()->route('order-schedules.index')
+
+        return redirect()->route('admin.order-schedules.index')
             ->with('success', 'Order schedule berhasil dihapus');
     }
 }
