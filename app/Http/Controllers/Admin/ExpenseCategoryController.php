@@ -27,7 +27,7 @@ class ExpenseCategoryController extends Controller
 
         ExpenseCategory::create($request->only('name'));
 
-        return redirect()->route('expense-categories.index')
+        return redirect()->route('admin.expense-categories.index')
                          ->with('success', 'Kategori berhasil ditambahkan.');
     }
 
@@ -49,7 +49,7 @@ class ExpenseCategoryController extends Controller
 
         $expenseCategory->update($request->only('name'));
 
-        return redirect()->route('expense-categories.index')
+        return redirect()->route('admin.expense-categories.index')
                          ->with('success', 'Kategori berhasil diupdate.');
     }
 
@@ -57,7 +57,7 @@ class ExpenseCategoryController extends Controller
     {
         $expenseCategory->delete();
 
-        return redirect()->route('expense-categories.index')
+        return redirect()->route('admin.expense-categories.index')
                          ->with('success', 'Kategori berhasil dihapus.');
     }
 }

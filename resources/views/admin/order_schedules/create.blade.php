@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 @section('content')
 
-<form action="{{ route('order-schedules.store') }}" method="POST">
+<form action="{{ route('admin.order-schedules.store') }}" method="POST">
 @csrf
 
 <div class="w-full p-6 mx-auto">
@@ -13,7 +13,7 @@
         <div class="p-6 pb-0">
           <div class="flex items-center">
             <h2 class="mb-0">Tambah Order Schedule</h2>
-            <a href="{{ route('order-schedules.index') }}"
+            <a href="{{ route('admin.order-schedules.index') }}"
                class="ml-auto px-8 py-2 text-xs font-bold text-white bg-blue-500 rounded-lg">
               Kembali
             </a>

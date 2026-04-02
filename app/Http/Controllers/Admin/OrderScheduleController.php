@@ -19,7 +19,7 @@ class OrderScheduleController extends Controller
 
     public function create()
     {
-        $orders = Order::with('variant.menu')->get();
+        $orders = Order::with('admin.variant.menu')->get();
         return view('admin.order_schedules.create', compact('orders'));
     }
 
@@ -45,7 +45,7 @@ class OrderScheduleController extends Controller
 
     public function edit(OrderSchedule $orderSchedule)
     {
-        $orders = Order::with('variant.menu')->get();
+        $orders = Order::with('admin.variant.menu')->get();
         return view('admin.order_schedules.edit', compact('orderSchedule','orders'));
     }
 

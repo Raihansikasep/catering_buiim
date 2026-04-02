@@ -1,77 +1,189 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Catering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            background: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061') no-repeat center;
+            background-size: cover;
+        }
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+        .overlay {
+            background: rgba(0,0,0,0.75);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+        .register-card {
+            display: flex;
+            width: 1000px;
+            max-width: 95%;
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            background: rgba(0,0,0,0.55);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+            animation: fadeIn 0.8s ease;
+        }
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+        .form-side {
+            width: 50%;
+            padding: 40px;
+            color: white;
+        }
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+        .image-side {
+            width: 50%;
+            background: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c') no-repeat center;
+            background-size: cover;
+        }
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+        h3 {
+            color: #20c997;
+            font-size: 26px;
+        }
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+        .form-control {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            padding: 12px;
+        }
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+        .form-control:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+        }
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+        .btn-register {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: bold;
+            color: white;
+            transition: 0.3s;
+        }
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+        .btn-register:hover {
+            transform: scale(1.05);
+        }
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+        .login-link {
+            margin-top: 10px;
+        }
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
+        .login-link a {
+            color: #20c997;
+            font-weight: bold;
+            text-decoration: none;
+        }
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px){
+            .register-card {
+                flex-direction: column;
+            }
+
+            .image-side {
+                height: 200px;
+                width: 100%;
+            }
+
+            .form-side {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <div class="register-card">
+
+        <!-- FORM -->
+        <div class="form-side">
+            <h3>Register</h3>
+            <p>Buat akun untuk mulai pesan makanan</p>
+
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+
+                {{-- Nama --}}
+                <input type="text" name="name"
+                    class="form-control @error('name') is-invalid @enderror"
+                    placeholder="Nama" required>
+
+                @error('name')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+
+                {{-- Email --}}
+                <input type="email" name="email"
+                    class="form-control @error('email') is-invalid @enderror"
+                    placeholder="Email" required>
+
+                @error('email')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+
+                {{-- Password --}}
+                <input type="password" name="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    placeholder="Password" required>
+
+                @error('password')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+
+                {{-- Konfirmasi --}}
+                <input type="password" name="password_confirmation"
+                    class="form-control"
+                    placeholder="Konfirmasi Password" required>
+
+                <button class="btn btn-register w-100">Register</button>
+
+                <div class="login-link">
+                    Sudah punya akun?
+                    <a href="{{ route('login') }}">Login</a>
                 </div>
-            </div>
+
+            </form>
         </div>
+
+        <!-- IMAGE -->
+        <div class="image-side"></div>
+
     </div>
+
 </div>
-@endsection
+
+</body>
+</html>

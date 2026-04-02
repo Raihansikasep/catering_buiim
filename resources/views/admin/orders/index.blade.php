@@ -9,7 +9,7 @@
       <div class="p-6 pb-0 mb-4 flex justify-between items-center">
         <h6 class="text-lg font-semibold">Order Table</h6>
 
-        <a href="{{ route('orders.create') }}"
+        <a href="{{ route('admin.orders.create') }}"
            class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
           + Tambah Variant
         </a>
@@ -118,18 +118,18 @@
 
                 {{-- ACTION --}}
                 <td class="px-6 py-3 text-center space-x-2">
-                  <a href="{{ route('orders.show', $order->id) }}"
+                  <a href="{{ route('admin.orders.show', $order->id) }}"
                     class="bg-gradient-to-tl from-blue-500 to-indigo-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
                     Lihat
                   </a>
                   {{-- EDIT --}}
-                  <a href="{{ route('orders.edit',$order->id) }}"
+                  <a href="{{ route('admin.orders.edit',$order->id) }}"
                      class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
                     Edit
                   </a>
 
                   {{-- DELETE --}}
-                  <form action="{{ route('orders.destroy',$order->id) }}"
+                  <form action="{{ route('admin.orders.destroy',$order->id) }}"
                         method="POST"
                         class="inline">
                     @csrf

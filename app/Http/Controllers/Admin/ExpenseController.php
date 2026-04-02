@@ -36,7 +36,7 @@ class ExpenseController extends Controller
 
         Expense::create($request->all());
 
-        return redirect()->route('expenses.index')
+        return redirect()->route('admin.expenses.index')
                          ->with('success', 'Expense berhasil ditambahkan.');
     }
 
@@ -67,7 +67,7 @@ class ExpenseController extends Controller
 
         $expense->update($request->all());
 
-        return redirect()->route('expenses.index')
+        return redirect()->route('admin.expenses.index')
                          ->with('success', 'Expense berhasil diperbarui.');
     }
 
@@ -75,7 +75,7 @@ class ExpenseController extends Controller
     public function destroy(Expense $expense)
     {
         $expense->delete();
-        return redirect()->route('expenses.index')
+        return redirect()->route('admin.expenses.index')
                          ->with('success', 'Expense berhasil dihapus.');
     }
 }

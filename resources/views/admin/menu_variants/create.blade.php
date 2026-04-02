@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-<form action="{{ route('menu-variants.store') }}" method="POST">
+<form action="{{ route('admin.menu-variants.store') }}" method="POST">
 @csrf
 
 <div class="w-full p-6 mx-auto">
@@ -13,7 +13,7 @@
         <div class="p-6 pb-0 border-b">
           <div class="flex items-center">
             <h2 class="mb-0">Tambah Menu Variant</h2>
-            <a href="{{ route('menu-variants.index') }}"
+            <a href="{{ route('admin.menu-variants.index') }}"
                class="ml-auto px-8 py-2 text-xs font-bold text-white bg-blue-500 rounded-lg">
               Kembali
             </a>
@@ -38,19 +38,21 @@
             {{-- NAMA VARIANT --}}
             <div class="w-full px-3 md:w-6/12">
               <label class="block mb-2 text-xs font-bold">Nama Variant</label>
-              <input type="text" name="name" class="w-full px-3 py-2 border rounded-lg" required>
+              <input type="text" name="name_variant" class="w-full px-3 py-2 border rounded-lg" required>
             </div>
 
-            {{-- PRICE --}}
-            <div class="w-full px-3 md:w-6/12 mt-4">
-              <label class="block mb-2 text-xs font-bold">Price</label>
-              <input type="number" step="0.01" name="price" class="w-full px-3 py-2 border rounded-lg" required>
-            </div>
+
 
             {{-- PORTION --}}
             <div class="w-full px-3 md:w-6/12 mt-4">
-              <label class="block mb-2 text-xs font-bold">Portion</label>
-              <input type="text" name="portion" class="w-full px-3 py-2 border rounded-lg" required>
+              <label class="block mb-2 text-xs font-bold">Nama Item</label>
+              <input type="text" name="name_item" class="w-full px-3 py-2 border rounded-lg" required>
+            </div>
+
+             {{-- DESKRIPSI --}}
+            <div class="w-full px-3 md:w-6/12 mt-4">
+              <label class="block mb-2 text-xs font-bold">Deskripsi</label>
+              <input type="text" name="description" class="w-full px-3 py-2 border rounded-lg" required>
             </div>
 
             {{-- BUTTON --}}

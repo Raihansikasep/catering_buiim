@@ -9,7 +9,7 @@
       <div class="p-6 pb-0">
         <div class="flex items-center">
           <h2 class="mb-0">Detail Order Schedule</h2>
-          <a href="{{ route('order-schedules.index') }}"
+          <a href="{{ route('admin.order-schedules.index') }}"
              class="ml-auto px-8 py-2 text-xs font-bold text-white bg-blue-500 rounded-lg">
             Kembali
           </a>

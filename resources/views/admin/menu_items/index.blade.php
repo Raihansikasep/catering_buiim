@@ -9,7 +9,7 @@
       <div class="p-6 pb-0 mb-4 flex justify-between items-center">
         <h6 class="text-lg font-semibold">Menu Item Table</h6>
 
-        <a href="{{ route('menu-items.create') }}"
+        <a href="{{ route('admin.menu-items.create') }}"
            class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
           + Tambah Menu Item
         </a>
@@ -50,13 +50,13 @@
                 <td class="px-6 py-3 text-center space-x-2">
 
                   {{-- EDIT --}}
-                  <a href="{{ route('menu-items.edit', $item->id) }}"
+                  <a href="{{ route('admin.menu-items.edit', $item->id) }}"
                      class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
                     Edit
                   </a>
 
                   {{-- DELETE --}}
-                  <form action="{{ route('menu-items.destroy', $item->id) }}"
+                  <form action="{{ route('admin.menu-items.destroy', $item->id) }}"
                         method="POST"
                         class="inline">
                     @csrf

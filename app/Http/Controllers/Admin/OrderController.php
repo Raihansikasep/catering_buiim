@@ -8,6 +8,7 @@ use App\Models\OrderSchedule;
 use App\Models\MenuVariant;
 use Illuminate\Http\Request;
 
+
 class OrderController extends Controller
 {
     public function index()
@@ -72,7 +73,7 @@ class OrderController extends Controller
             'status'        => 'belum',
         ]);
 
-        return redirect()->route('orders.index')
+        return redirect()->route('admin.orders.index')
             ->with('success','Order berhasil ditambahkan');
     }
 
@@ -126,7 +127,7 @@ class OrderController extends Controller
             'schedule_date' => $request->schedule_date,
         ]);
 
-        return redirect()->route('orders.index')
+        return redirect()->route('admin.orders.index')
             ->with('success','Order berhasil diupdate');
     }
 
@@ -140,7 +141,7 @@ class OrderController extends Controller
         // Hapus order sekaligus schedule karena ada cascade di migration
         $order->delete();
 
-        return redirect()->route('orders.index')
+        return redirect()->route('admin.orders.index')
             ->with('success', 'Order berhasil dihapus');
     }
 

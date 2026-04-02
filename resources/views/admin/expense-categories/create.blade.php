@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 @section('content')
 
-<form action="{{ route('expense-categories.store') }}" method="POST">
+<form action="{{ route('admin.expense-categories.store') }}" method="POST">
 @csrf
 
 <div class="w-full p-6 mx-auto">
@@ -12,7 +12,7 @@
         {{-- HEADER --}}
         <div class="flex items-center mb-4">
           <h2 class="text-lg font-semibold">Tambah Kategori Expense</h2>
-          <a href="{{ route('expense-categories.index') }}"
+          <a href="{{ route('admin.expense-categories.index') }}"
              class="ml-auto px-6 py-2 text-xs font-bold text-white bg-gray-500 rounded-lg">
             Kembali
           </a>

@@ -9,7 +9,7 @@
       <div class="p-6 pb-0 mb-4 flex justify-between items-center">
         <h6 class="text-lg font-semibold">Menu Variant Table</h6>
 
-        <a href="{{ route('menu-variants.create') }}"
+        <a href="{{ route('admin.menu-variants.create') }}"
            class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
           + Tambah Variant
         </a>
@@ -25,8 +25,8 @@
                 <th class="px-6 py-3 text-left text-xs font-bold uppercase">No</th>
                 <th class="px-6 py-3 text-left text-xs font-bold uppercase">Menu</th>
                 <th class="px-6 py-3 text-left text-xs font-bold uppercase">Nama Variant</th>
-                <th class="px-6 py-3 text-center text-xs font-bold uppercase">Price</th>
-                <th class="px-6 py-3 text-center text-xs font-bold uppercase">Portion</th>
+                <th class="px-6 py-3 text-left text-xs font-bold uppercase">Nama Item</th>
+                <th class="px-6 py-3 text-center text-xs font-bold uppercase">Deskripsi</th>
                 <th class="px-6 py-3 text-center text-xs font-bold uppercase">Aksi</th>
               </tr>
             </thead>
@@ -41,27 +41,27 @@
                 </td>
 
                 <td class="px-6 py-3 text-sm">
-                  {{ $variant->name }}
+                  {{ $variant->name_variant }}
+                </td>
+
+                <td class="px-6 py-3 text-sm">
+                  {{ $variant->name_item }}
                 </td>
 
                 <td class="px-6 py-3 text-center text-sm">
-                  Rp {{ number_format($variant->price, 0, ',', '.') }}
-                </td>
-
-                <td class="px-6 py-3 text-center text-sm">
-                  {{ $variant->portion }}
+                  {{ $variant->description }}
                 </td>
 
                 <td class="px-6 py-3 text-center space-x-2">
 
                   {{-- EDIT --}}
-                  <a href="{{ route('menu-variants.edit', $variant->id) }}"
+                  <a href="{{ route('admin.menu-variants.edit', $variant->id) }}"
                      class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
                     Edit
                   </a>
 
                   {{-- DELETE --}}
-                  <form action="{{ route('menu-variants.destroy', $variant->id) }}"
+                  <form action="{{ route('admin.menu-variants.destroy', $variant->id) }}"
                         method="POST"
                         class="inline">
                     @csrf

@@ -24,15 +24,15 @@ class MenuVariantController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'menu_id' => 'required|exists:menus,id',
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'portion' => 'required|string|max:50',
+            'menu_id'      => 'required|exists:menus,id',
+            'name_variant' => 'required|string|max:255',
+            'name_item'    => 'required|string|max:255',
+            'description'  => 'nullable|string',
         ]);
 
         MenuVariant::create($request->all());
 
-        return redirect()->route('menu-variants.index')
+        return redirect()->route('admin.menu-variants.index')
             ->with('success', 'Menu Variant berhasil ditambahkan');
     }
 
@@ -45,15 +45,15 @@ class MenuVariantController extends Controller
     public function update(Request $request, MenuVariant $menu_variant)
     {
         $request->validate([
-            'menu_id' => 'required|exists:menus,id',
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'portion' => 'required|string|max:50',
+            'menu_id'      => 'required|exists:menus,id',
+            'name_variant' => 'required|string|max:255',
+            'name_item'    => 'required|string|max:255',
+            'description'  => 'nullable|string',
         ]);
 
         $menu_variant->update($request->all());
 
-        return redirect()->route('menu-variants.index')
+        return redirect()->route('admin.menu-variants.index')
             ->with('success', 'Menu Variant berhasil diupdate');
     }
 
@@ -61,7 +61,7 @@ class MenuVariantController extends Controller
     {
         $menu_variant->delete();
 
-        return redirect()->route('menu-variants.index')
+        return redirect()->route('admin.menu-variants.index')
             ->with('success', 'Menu Variant berhasil dihapus');
     }
 }

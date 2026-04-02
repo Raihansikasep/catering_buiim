@@ -30,7 +30,7 @@ class MenuItemController extends Controller
 
         MenuItem::create($request->all());
 
-        return redirect()->route('menu-items.index')
+        return redirect()->route('admin.menu-items.index')
             ->with('success','Menu Item berhasil ditambahkan');
     }
 
@@ -54,7 +54,7 @@ class MenuItemController extends Controller
 
         $menu_item->update($request->all());
 
-        return redirect()->route('menu-items.index')
+        return redirect()->route('admin.menu-items.index')
             ->with('success','Menu Item berhasil diupdate');
     }
 
@@ -62,7 +62,7 @@ class MenuItemController extends Controller
     {
         $menu_item->delete();
 
-        return redirect()->route('menu-items.index')
+        return redirect()->route('admin.menu-items.index')
             ->with('success','Menu Item berhasil dihapus');
     }
 }

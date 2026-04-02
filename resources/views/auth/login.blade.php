@@ -1,73 +1,197 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Catering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836') no-repeat center;
+            background-size: cover;
+        }
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+        .overlay {
+            background: rgba(0,0,0,0.75);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+        .login-card {
+            display: flex;
+            width: 950px; /* 🔥 dari 700 → 950 */
+            max-width: 95%;
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            background: rgba(0,0,0,0.55);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+        }
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+        .form-side {
+            width: 50%;
+            padding: 30px;
+            color: white;
+        }
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+        .form-side {
+            width: 50%;
+            padding: 40px; /* dari 30 → 40 */
+        }
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+        .image-side {
+            width: 50%;
+            min-height: 450px; /* 🔥 biar tinggi */
+        }
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+        h3 {
+            font-size: 26px;
+        }
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+        .form-control {
+            padding: 12px;
+            font-size: 15px;
+        }
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+        .overlay {
+            padding: 20px;
+        }
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+        .btn-login {
+            padding: 12px;
+            font-size: 16px;
+        }
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+        .image-side {
+            width: 50%;
+            background: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c') no-repeat center;
+            background-size: cover;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+        }
+
+        .btn-login {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            transform: scale(1.05);
+        }
+
+        .register-link {
+            margin-top: 10px;
+        }
+
+        .register-link a {
+            color: #20c997;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        h3 {
+            color: #20c997;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px){
+            .login-card {
+                flex-direction: column;
+                width: 90%;
+            }
+
+            .image-side {
+                height: 200px;
+                width: 100%;
+            }
+
+            .form-side {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <div class="login-card">
+
+        <!-- FORM -->
+        <div class="form-side">
+            <h3>Login</h3>
+            <p>Masuk untuk mulai pesan makanan</p>
+
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <input type="email" name="email"
+                    class="form-control @error('email') is-invalid @enderror"
+                    placeholder="Email" required>
+
+                @error('email')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+
+                <input type="password" name="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    placeholder="Password" required>
+
+                @error('password')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+
+                <button class="btn btn-login w-100">Login</button>
+
+                <div class="register-link">
+                    Belum punya akun?
+                    <a href="{{ route('register') }}">Register</a>
                 </div>
-            </div>
+            </form>
         </div>
+
+        <!-- IMAGE -->
+        <div class="image-side"></div>
+
     </div>
+
 </div>
-@endsection
+
+</body>
+</html>

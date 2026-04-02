@@ -9,7 +9,7 @@
       <div class="p-6 pb-0 mb-4 flex justify-between items-center">
         <h6 class="text-lg font-semibold">Order Schedule Table</h6>
 
-        <a href="{{ route('order-schedules.create') }}"
+        <a href="{{ route('admin.order-schedules.create') }}"
            class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
           + Tambah Schedule
         </a>
@@ -51,19 +51,19 @@
                 <td class="px-6 py-3 text-center space-x-2">
 
                   {{-- SHOW --}}
-                  <a href="{{ route('order-schedules.show', $schedule->id) }}"
+                  <a href="{{ route('admin.order-schedules.show', $schedule->id) }}"
                      class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
                     Show
                   </a>
 
                   {{-- EDIT --}}
-                  <a href="{{ route('order-schedules.edit', $schedule->id) }}"
+                  <a href="{{ route('admin.order-schedules.edit', $schedule->id) }}"
                      class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
                     Edit
                   </a>
 
                   {{-- DELETE --}}
-                  <form action="{{ route('order-schedules.destroy', $schedule->id) }}"
+                  <form action="{{ route('admin.order-schedules.destroy', $schedule->id) }}"
                         method="POST" class="inline">
                     @csrf
                     @method('DELETE')

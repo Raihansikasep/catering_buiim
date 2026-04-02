@@ -8,7 +8,7 @@
       {{-- HEADER --}}
       <div class="p-6 pb-0 mb-4 flex justify-between items-center">
         <h6 class="text-lg font-semibold">Expense Categories</h6>
-        <a href="{{ route('expense-categories.create') }}"
+        <a href="{{ route('admin.expense-categories.create') }}"
            class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
           + Tambah Kategori
         </a>
@@ -31,11 +31,11 @@
                 <td class="px-6 py-3">{{ $loop->iteration }}</td>
                 <td class="px-6 py-3 font-medium">{{ $category->name }}</td>
                 <td class="px-6 py-3 text-center space-x-2">
-                  <a href="{{ route('expense-categories.edit', $category->id) }}"
+                  <a href="{{ route('admin.expense-categories.edit', $category->id) }}"
                      class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
                     Edit
                   </a>
-                  <form action="{{ route('expense-categories.destroy', $category->id) }}" method="POST" class="inline">
+                  <form action="{{ route('admin.expense-categories.destroy', $category->id) }}" method="POST" class="inline">
                     @csrf
                     @method('DELETE')
                     <button onclick="return confirm('Yakin hapus kategori ini?')"

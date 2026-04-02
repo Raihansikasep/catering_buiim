@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 @section('content')
 
-<form action="{{ route('menu-items.store') }}" method="POST">
+<form action="{{ route('admin.menu-items.store') }}" method="POST">
 @csrf
 
 <div class="w-full p-6 mx-auto">
@@ -11,7 +11,7 @@
         <div class="p-6 pb-0">
           <div class="flex items-center">
             <h2 class="mb-0">Tambah Menu Item</h2>
-            <a href="{{ route('menu-items.index') }}"
+            <a href="{{ route('admin.menu-items.index') }}"
                class="ml-auto inline-block px-8 py-2 mb-4 font-bold text-white bg-blue-500 rounded-lg text-xs">
               Kembali
             </a>

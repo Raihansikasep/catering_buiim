@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void {
         Schema::create('menu_variants', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('menu_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->decimal('price', 10, 2);
-            $table->integer('portion')->nullable();
-            $table->timestamps();
-        });
+        $table->id();
+        $table->foreignId('menu_id')->constrained()->cascadeOnDelete();
+        $table->string('name_variant');
+        $table->string('name_item'); // ayam goreng, ayam bakar
+        $table->text('description')->nullable(); // optional detail isi
+
+        $table->timestamps();
+    });
     }
 
     /**

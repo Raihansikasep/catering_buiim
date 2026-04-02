@@ -10,7 +10,7 @@
         <div class="p-6 pb-0">
           <div class="flex items-center">
             <h2 class="mb-0">Detail Menu</h2>
-            <a href="{{ route('menus.index') }}"
+            <a href="{{ route('admin.menus.index') }}"
                class="ml-auto px-8 py-2 text-xs font-bold text-white bg-blue-500 rounded-lg">
               Kembali
             </a>
@@ -34,6 +34,13 @@
               <label class="block text-xs font-bold mb-1">Kategori</label>
               <div class="p-2 border rounded-lg bg-gray-50">
                 {{ $menu->category->name ?? '-' }}
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold mb-1">Harga</label>
+              <div class="p-2 border rounded-lg bg-gray-50">
+                {{ $menu->price ?? '-' }}
               </div>
             </div>
 

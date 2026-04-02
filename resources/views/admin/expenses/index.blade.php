@@ -8,7 +8,7 @@
       {{-- HEADER --}}
       <div class="p-6 pb-0 mb-4 flex justify-between items-center">
         <h6 class="text-lg font-semibold">Expenses</h6>
-        <a href="{{ route('expenses.create') }}"
+        <a href="{{ route('admin.expenses.create') }}"
            class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
           + Tambah Expense
         </a>
@@ -39,11 +39,11 @@
                 <td class="px-6 py-3">{{ \Carbon\Carbon::parse($expense->expense_date)->format('d M Y') }}</td>
                 <td class="px-6 py-3">{{ Str::limit($expense->notes, 50) ?? '-' }}</td>
                 <td class="px-6 py-3 text-center space-x-2">
-                  <a href="{{ route('expenses.edit', $expense->id) }}"
+                  <a href="{{ route('admin.expenses.edit', $expense->id) }}"
                      class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
                     Edit
                   </a>
-                  <form action="{{ route('expenses.destroy', $expense->id) }}" method="POST" class="inline">
+                  <form action="{{ route('admin.expenses.destroy', $expense->id) }}" method="POST" class="inline">
                     @csrf
                     @method('DELETE')
                     <button onclick="return confirm('Yakin hapus expense ini?')"

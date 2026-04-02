@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 @section('content')
 
-<form action="{{ route('expenses.update', $expense->id) }}" method="POST">
+<form action="{{ route('admin.expenses.update', $expense->id) }}" method="POST">
 @csrf
 @method('PUT')
 
@@ -13,7 +13,7 @@
         {{-- HEADER --}}
         <div class="flex items-center mb-4">
           <h2 class="text-lg font-semibold">Edit Expense</h2>
-          <a href="{{ route('expenses.index') }}"
+          <a href="{{ route('admin.expenses.index') }}"
              class="ml-auto px-6 py-2 text-xs font-bold text-white bg-gray-500 rounded-lg">
             Kembali
           </a>

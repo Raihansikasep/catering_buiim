@@ -9,7 +9,7 @@
       <div class="p-6 pb-0 mb-4 flex justify-between items-center">
         <h6 class="text-lg font-semibold">Categories Table</h6>
 
-        <a href="{{ route('categories.create') }}"
+        <a href="{{ route('admin.categories.create') }}"
            class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
           + Tambah Category
         </a>
@@ -45,13 +45,13 @@
                 <td class="px-6 py-3 text-center space-x-2">
 
                   {{-- EDIT --}}
-                  <a href="{{ route('categories.edit', $category->id) }}"
+                  <a href="{{ route('admin.categories.edit', $category->id) }}"
                      class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
                     Edit
                   </a>
 
                   {{-- DELETE --}}
-                  <form action="{{ route('categories.destroy', $category->id) }}"
+                  <form action="{{ route('admin.categories.destroy', $category->id) }}"
                         method="POST"
                         class="inline">
                     @csrf

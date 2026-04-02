@@ -9,7 +9,7 @@
       <div class="p-6 pb-0 mb-4 flex justify-between items-center">
         <h6 class="text-lg font-semibold">Menu Table</h6>
 
-        <a href="{{ route('menus.create') }}"
+        <a href="{{ route('admin.menus.create') }}"
            class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
           + Tambah Category
         </a>
@@ -25,6 +25,9 @@
           <th class="px-6 py-3 text-left text-xs font-bold uppercase">No</th>
           <th class="px-6 py-3 text-left text-xs font-bold uppercase">Nama Menu</th>
           <th class="px-6 py-3 text-left text-xs font-bold uppercase">Kategori</th>
+          <th class="px-6 py-3 text-center text-xs font-bold uppercase">Price</th>
+          <th class="px-6 py-3 text-left text-xs font-bold uppercase">Min</th>
+          <th class="px-6 py-3 text-left text-xs font-bold uppercase">Max</th>
           <th class="px-6 py-3 text-left text-xs font-bold uppercase">Deskripsi</th>
           <th class="px-6 py-3 text-center text-xs font-bold uppercase">Gambar</th>
           <th class="px-6 py-3 text-center text-xs font-bold uppercase">Aksi</th>
@@ -44,6 +47,13 @@
             {{ $menu->category->name ?? '-' }}
           </td>
 
+          <td class="px-6 py-3 text-center text-sm">
+            Rp {{ number_format($menu->price, 0, ',', '.') }}
+          </td>
+
+          <td>{{ $menu->min_order }}</td>
+          <td>{{ $menu->max_order }}</td>
+
           <td class="px-6 py-3 text-sm">
             {{ Str::limit($menu->description, 50) }}
           </td>
@@ -60,17 +70,17 @@
           <td class="px-6 py-3 text-center space-x-2">
 
             {{-- EDIT --}}
-            <a href="{{ route('menus.show', $menu->id) }}"
+            <a href="{{ route('admin.menus.show', $menu->id) }}"
                class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
               Show
             </a>
-             <a href="{{ route('menus.edit', $menu->id) }}"
+             <a href="{{ route('admin.menus.edit', $menu->id) }}"
                class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
               Edit
             </a>
 
             {{-- DELETE --}}
-            <form action="{{ route('menus.destroy', $menu->id) }}"
+            <form action="{{ route('admin.menus.destroy', $menu->id) }}"
                   method="POST"
                   class="inline">
               @csrf

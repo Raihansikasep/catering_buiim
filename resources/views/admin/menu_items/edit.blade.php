@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 @section('content')
 
-<form action="{{ route('menu-items.update', $menu_item->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.menu-items.update', $menu_item->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 
@@ -14,7 +14,7 @@
         <div class="p-6 pb-0">
           <div class="flex items-center">
             <h2 class="mb-0">Edit Menu Item</h2>
-            <a href="{{ route('menu-items.index') }}"
+            <a href="{{ route('admin.menu-items.index') }}"
                class="ml-auto inline-block px-8 py-2 mb-4 font-bold text-white bg-blue-500 rounded-lg text-xs">
               Kembali
             </a>

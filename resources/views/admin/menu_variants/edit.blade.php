@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-<form action="{{ route('menu-variants.update', $menu_variant) }}" method="POST">
+<form action="{{ route('admin.menu-variants.update', $menu_variant) }}" method="POST">
 @csrf
 @method('PUT')
 
@@ -14,7 +14,7 @@
         <div class="p-6 pb-0 border-b">
           <div class="flex items-center">
             <h2 class="mb-0">Edit Menu Variant</h2>
-            <a href="{{ route('menu-variants.index') }}"
+            <a href="{{ route('admin.menu-variants.index') }}"
                class="ml-auto px-8 py-2 text-xs font-bold text-white bg-blue-500 rounded-lg">
               Kembali
             </a>
@@ -43,28 +43,30 @@
             <div class="w-full px-3 md:w-6/12">
               <div class="mb-4">
                 <label class="block mb-2 text-xs font-bold">Nama Variant</label>
-                <input type="text" name="name"
-                       value="{{ old('name', $menu_variant->name) }}"
+                <input type="text" name="name_variant"
+                       value="{{ old('name_variant', $menu_variant->name_variant) }}"
                        class="w-full px-3 py-2 border rounded-lg" required>
               </div>
             </div>
 
-            {{-- PRICE --}}
+
+
+
             <div class="w-full px-3 md:w-6/12 mt-4">
               <div class="mb-4">
-                <label class="block mb-2 text-xs font-bold">Price</label>
-                <input type="number" step="0.01" name="price"
-                       value="{{ old('price', $menu_variant->price) }}"
+                <label class="block mb-2 text-xs font-bold">Nama Item</label>
+                <input type="text" name="name_item"
+                       value="{{ old('name_item', $menu_variant->name_item) }}"
                        class="w-full px-3 py-2 border rounded-lg" required>
               </div>
             </div>
 
-            {{-- PORTION --}}
+
             <div class="w-full px-3 md:w-6/12 mt-4">
               <div class="mb-4">
-                <label class="block mb-2 text-xs font-bold">Portion</label>
-                <input type="text" name="portion"
-                       value="{{ old('portion', $menu_variant->portion) }}"
+                <label class="block mb-2 text-xs font-bold">Deskripsi</label>
+                <input type="text" name="description"
+                       value="{{ old('description', $menu_variant->description) }}"
                        class="w-full px-3 py-2 border rounded-lg" required>
               </div>
             </div>

@@ -31,9 +31,17 @@ class MenuController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'min_order' => 'required|integer|min:1',
+            'max_order' => 'required|integer|gte:min_order',
         ]);
 
-        $data = $request->all();
+        $data = $request->only([
+            'category_id',
+            'name',
+            'description',
+            'min_order',
+            'max_order'
+        ]);
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('menus', 'public');
@@ -41,7 +49,7 @@ class MenuController extends Controller
 
         Menu::create($data);
 
-        return redirect()->route('menus.index')->with('success', 'Menu berhasil ditambahkan!');
+        return redirect()->route('admin.menus.index')->with('success', 'Menu berhasil ditambahkan!');
     }
 
     // tampilkan menu tertentu
@@ -65,9 +73,17 @@ class MenuController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'min_order' => 'required|integer|min:1',
+            'max_order' => 'required|integer|gte:min_order',
         ]);
 
-        $data = $request->all();
+        $data = $request->only([
+            'category_id',
+            'name',
+            'description',
+            'min_order',
+            'max_order'
+        ]);
 
         if ($request->hasFile('image')) {
             // hapus gambar lama jika ada
@@ -79,7 +95,7 @@ class MenuController extends Controller
 
         $menu->update($data);
 
-        return redirect()->route('menus.index')->with('success', 'Menu berhasil diupdate!');
+        return redirect()->route('admin.menus.index')->with('success', 'Menu berhasil diupdate!');
     }
 
     // hapus menu
@@ -91,6 +107,6 @@ class MenuController extends Controller
 
         $menu->delete();
 
-        return redirect()->route('menus.index')->with('success', 'Menu berhasil dihapus!');
+        return redirect()->route('admin.menus.index')->with('success', 'Menu berhasil dihapus!');
     }
 }

@@ -12,10 +12,16 @@ return new class extends Migration
      public function up(): void {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
+
+            $table->integer('price'); // 🔥 TAMBAH INI (harga utama menu)
+
+            $table->integer('min_order')->nullable();
+            $table->integer('max_order')->nullable();
+
             $table->timestamps();
         });
     }

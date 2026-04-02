@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 @section('content')
 
-<form action="{{ route('menus.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.menus.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 
@@ -14,7 +14,7 @@
         <div class="p-6 pb-0">
           <div class="flex items-center">
             <h2 class="mb-0">Edit Menu</h2>
-            <a href="{{ route('menus.index') }}"
+            <a href="{{ route('admin.menus.index') }}"
                class="ml-auto inline-block px-8 py-2 mb-4 font-bold text-white bg-blue-500 rounded-lg text-xs">
               Kembali
             </a>
@@ -53,6 +53,30 @@
                   @endforeach
                 </select>
               </div>
+            </div>
+
+            {{-- PRICE --}}
+            <div class="w-full px-3 md:w-6/12 mt-4">
+              <div class="mb-4">
+                <label class="block mb-2 text-xs font-bold">Harga</label>
+                <input type="number" step="0.01" name="price"
+                       value="{{ old('price', $menu->price) }}"
+                       class="w-full px-3 py-2 border rounded-lg" required>
+              </div>
+            </div>
+
+            <div class="w-full px-3 md:w-6/12 mt-4">
+            <label class="block mb-2 text-xs font-bold">Min Order</label>
+            <input type="number" name="min_order"
+                    value="{{ old('min_order', $menu->min_order) }}"
+                    class="w-full px-3 py-2 border rounded-lg">
+            </div>
+
+            <div class="w-full px-3 md:w-6/12 mt-4">
+            <label class="block mb-2 text-xs font-bold">Max Order</label>
+            <input type="number" name="max_order"
+                    value="{{ old('max_order', $menu->max_order) }}"
+                    class="w-full px-3 py-2 border rounded-lg">
             </div>
 
             {{-- DESKRIPSI --}}

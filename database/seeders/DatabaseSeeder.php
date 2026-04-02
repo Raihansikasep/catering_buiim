@@ -11,12 +11,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            UserSeeder::class,      // ⬅️ admin & owner
+            UserSeeder::class,
             CategorySeeder::class,
             MenuSeeder::class,
             MenuVariantSeeder::class,
+            MenuAddonSeeder::class,
             MenuItemSeeder::class,
-            OrderSeeder::class,
         ]);
     }
 };
