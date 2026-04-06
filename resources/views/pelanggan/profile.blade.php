@@ -1,6 +1,3 @@
-
-Copy
-
 @extends('layouts.frontend')
 @section('content')
 
@@ -10,7 +7,6 @@ Copy
 
 .profile-page { background: #f7f8fa; min-height: 100vh; padding: 40px 0 80px; }
 
-/* SIDEBAR */
 .sidebar-card {
     background: #fff;
     border-radius: 24px;
@@ -31,9 +27,8 @@ Copy
     color: #065f46;
     letter-spacing: -1px;
 }
-.sidebar-name { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 2px; }
+.sidebar-name  { font-size: 1rem; font-weight: 700; color: #111; margin-bottom: 2px; }
 .sidebar-email { font-size: 0.8rem; color: #999; margin-bottom: 20px; }
-
 .sidebar-divider { border: none; border-top: 1px solid #f0f0f0; margin: 20px 0; }
 
 .sidebar-nav-btn {
@@ -53,7 +48,7 @@ Copy
     transition: all 0.15s;
     margin-bottom: 4px;
 }
-.sidebar-nav-btn:hover { background: #f4f4f5; color: #111; }
+.sidebar-nav-btn:hover  { background: #f4f4f5; color: #111; }
 .sidebar-nav-btn.active { background: #f0fdf4; color: #16a34a; font-weight: 600; }
 .sidebar-nav-btn.danger { color: #dc2626; }
 .sidebar-nav-btn.danger:hover { background: #fef2f2; }
@@ -66,9 +61,8 @@ Copy
     flex-shrink: 0;
 }
 .sidebar-nav-btn.active .nav-icon { background: #dcfce7; }
-.sidebar-nav-btn.danger .nav-icon { background: #fee2e2; }
+.sidebar-nav-btn.danger  .nav-icon { background: #fee2e2; }
 
-/* MAIN CONTENT */
 .content-card {
     background: #fff;
     border-radius: 24px;
@@ -94,13 +88,12 @@ Copy
     transition: all 0.15s;
     border-radius: 0;
 }
-.tab-btn:hover { color: #333; }
+.tab-btn:hover  { color: #333; }
 .tab-btn.active { color: #16a34a; border-bottom-color: #16a34a; }
 
-.tab-pane { display: none; padding: 28px 24px; }
+.tab-pane        { display: none; padding: 28px 24px; }
 .tab-pane.active { display: block; }
 
-/* FORM */
 .form-section-label {
     font-size: 0.78rem;
     font-weight: 700;
@@ -108,7 +101,6 @@ Copy
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-bottom: 14px;
-    margin-top: 4px;
 }
 .form-label { font-size: 0.82rem; font-weight: 600; color: #555; margin-bottom: 6px; }
 .form-control {
@@ -139,7 +131,6 @@ Copy
 }
 .btn-save:hover { background: #15803d; transform: translateY(-1px); }
 
-/* ORDER LIST */
 .order-item-card {
     border: 1.5px solid #f0f0f0;
     border-radius: 16px;
@@ -148,27 +139,13 @@ Copy
     transition: border-color 0.15s;
 }
 .order-item-card:hover { border-color: #d1fae5; }
-.order-id { font-size: 0.78rem; color: #aaa; margin-bottom: 4px; }
-.order-name { font-size: 0.9rem; font-weight: 600; color: #111; }
-.order-date { font-size: 0.78rem; color: #999; }
+.order-id    { font-size: 0.78rem; color: #aaa; margin-bottom: 4px; }
+.order-name  { font-size: 0.9rem; font-weight: 600; color: #111; }
+.order-date  { font-size: 0.78rem; color: #999; }
 .order-total { font-size: 0.92rem; font-weight: 700; color: #16a34a; }
-.status-badge {
-    display: inline-block;
-    padding: 3px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-.status-pending { background: #fffbeb; color: #92400e; }
-.status-proses  { background: #eff6ff; color: #1d4ed8; }
-.status-selesai { background: #f0fdf4; color: #166534; }
-.status-batal   { background: #fef2f2; color: #b91c1c; }
+.status-selesai { background: #f0fdf4; color: #166534; display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
 
-.empty-tab {
-    text-align: center;
-    padding: 60px 20px;
-    color: #bbb;
-}
+.empty-tab { text-align: center; padding: 60px 20px; color: #bbb; }
 .empty-tab .empty-icon {
     width: 64px; height: 64px;
     background: #f4f4f5;
@@ -179,7 +156,6 @@ Copy
 }
 .empty-tab p { font-size: 0.85rem; margin: 0; }
 
-/* Alert */
 .alert-success-custom {
     background: #f0fdf4;
     border: 1px solid #bbf7d0;
@@ -193,30 +169,24 @@ Copy
     gap: 8px;
 }
 
-/* Toast */
 .toast-notif {
     position: fixed;
     bottom: 28px; right: 28px;
-    background: #111;
-    color: #fff;
+    background: #111; color: #fff;
     padding: 12px 20px;
     border-radius: 14px;
-    font-size: 0.85rem;
-    font-weight: 500;
+    font-size: 0.85rem; font-weight: 500;
     z-index: 9999;
-    opacity: 0;
-    transform: translateY(10px);
+    opacity: 0; transform: translateY(10px);
     transition: all 0.3s;
     pointer-events: none;
 }
-.toast-notif.show { opacity: 1; transform: translateY(0); }
+.toast-notif.show    { opacity: 1; transform: translateY(0); }
 .toast-notif.success { background: #16a34a; }
 
-@media (max-width: 991px) {
-    .sidebar-card { position: static; margin-bottom: 16px; }
-}
+@media (max-width: 991px) { .sidebar-card { position: static; margin-bottom: 16px; } }
 @media (max-width: 576px) {
-    .tab-pane { padding: 20px 16px; }
+    .tab-pane     { padding: 20px 16px; }
     .content-tabs { padding: 16px 16px 0; overflow-x: auto; }
 }
 </style>
@@ -247,13 +217,13 @@ Copy
 
             <button class="sidebar-nav-btn" onclick="switchTab('riwayat', this)">
                 <span class="nav-icon">📦</span>
-                Riwayat Pesanan
+                Riwayat Selesai
             </button>
 
-            <a href="{{ route('my.orders') }}"
-                   class="btn btn-outline-primary w-100 mb-2 rounded-pill">
-                    Pesanan Saya
-                </a>
+            <a href="{{ route('my.orders') }}" class="sidebar-nav-btn">
+                <span class="nav-icon">🧾</span>
+                Semua Pesanan
+            </a>
 
             <hr class="sidebar-divider">
 
@@ -273,8 +243,8 @@ Copy
         <div class="content-card">
 
             <div class="content-tabs">
-                <button class="tab-btn active" id="tab-info" onclick="switchTab('info', null)">Profil Saya</button>
-                <button class="tab-btn" id="tab-riwayat" onclick="switchTab('riwayat', null)">Riwayat Pesanan</button>
+                <button class="tab-btn active" id="tab-info"     onclick="switchTab('info', null)">Profil Saya</button>
+                <button class="tab-btn"         id="tab-riwayat" onclick="switchTab('riwayat', null)">Riwayat Selesai</button>
             </div>
 
             {{-- TAB INFO --}}
@@ -295,8 +265,7 @@ Copy
                         <div class="col-md-6">
                             <label class="form-label">Nama Lengkap</label>
                             <input type="text" name="name" class="form-control"
-                                   value="{{ auth()->user()->name }}"
-                                   placeholder="Nama lengkap">
+                                   value="{{ auth()->user()->name }}" placeholder="Nama lengkap">
                         </div>
 
                         <div class="col-md-6">
@@ -308,8 +277,7 @@ Copy
                         <div class="col-12">
                             <label class="form-label">No HP / WhatsApp</label>
                             <input type="text" name="phone" class="form-control"
-                                   value="{{ auth()->user()->phone }}"
-                                   placeholder="08xxxxxxxxxx">
+                                   value="{{ auth()->user()->phone }}" placeholder="08xxxxxxxxxx">
                         </div>
 
                         <div class="col-12">
@@ -330,46 +298,34 @@ Copy
             {{-- TAB RIWAYAT --}}
             <div class="tab-pane" id="pane-riwayat">
 
-                <div class="form-section-label">Riwayat Pesanan</div>
+                <div class="form-section-label">Pesanan Selesai</div>
 
-                @if(isset($orders) && $orders->count())
+                @if($orders->count())
 
                     @foreach($orders as $order)
                     <div class="order-item-card">
                         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div>
-                                <div class="order-id">#{{ $order->order_number ?? $order->id }}</div>
-                                <div class="order-name">
-                                    {{ $order->items->first()->menu->name ?? 'Pesanan' }}
-                                    @if($order->items->count() > 1)
-                                        <span style="color:#aaa; font-weight:400;"> +{{ $order->items->count() - 1 }} lainnya</span>
-                                    @endif
-                                </div>
+                                <div class="order-id">#ORD-{{ str_pad($order->id, 4, '0', STR_PAD_LEFT) }}</div>
+                                <div class="order-name">{{ $order->variant->menu->name ?? 'Pesanan' }}</div>
                                 <div class="order-date mt-1">
-                                    📅 {{ \Carbon\Carbon::parse($order->schedule_date)->translatedFormat('d F Y') }}
+                                    📅 {{ \Carbon\Carbon::parse($order->order_date)->translatedFormat('d F Y') }}
                                 </div>
                             </div>
                             <div class="text-end">
                                 <div class="order-total mb-1">Rp {{ number_format($order->total_price) }}</div>
-                                <span class="status-badge
-                                    @if($order->status == 'pending') status-pending
-                                    @elseif(in_array($order->status, ['confirmed','processing'])) status-proses
-                                    @elseif($order->status == 'completed') status-selesai
-                                    @else status-batal
-                                    @endif">
-                                    {{ ucfirst($order->status) }}
-                                </span>
+                                <span class="status-selesai">✅ Selesai</span>
                             </div>
                         </div>
                     </div>
                     @endforeach
 
-                    {{ $orders->links() }}
+                    <div class="mt-3">{{ $orders->links() }}</div>
 
                 @else
                 <div class="empty-tab">
                     <div class="empty-icon">📦</div>
-                    <p>Belum ada riwayat pesanan</p>
+                    <p>Belum ada pesanan yang selesai</p>
                 </div>
                 @endif
 
@@ -391,10 +347,11 @@ function switchTab(name, sidebarBtn) {
     document.querySelectorAll('.sidebar-nav-btn').forEach(b => b.classList.remove('active'));
 
     document.getElementById('pane-' + name).classList.add('active');
-    document.getElementById('tab-' + name).classList.add('active');
+    document.getElementById('tab-'  + name).classList.add('active');
 
-    if (sidebarBtn) sidebarBtn.classList.add('active');
-    else {
+    if (sidebarBtn) {
+        sidebarBtn.classList.add('active');
+    } else {
         document.querySelectorAll('.sidebar-nav-btn').forEach(b => {
             if (b.getAttribute('onclick')?.includes("'" + name + "'")) b.classList.add('active');
         });
@@ -404,7 +361,7 @@ function switchTab(name, sidebarBtn) {
 @if(session('success'))
 const t = document.getElementById('toastNotif');
 t.textContent = '{{ session('success') }}';
-t.className = 'toast-notif success show';
+t.className   = 'toast-notif success show';
 setTimeout(() => t.classList.remove('show'), 3000);
 @endif
 </script>

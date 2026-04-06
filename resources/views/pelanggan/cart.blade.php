@@ -228,6 +228,44 @@
     .cart-item-img { width: 64px; height: 64px; }
     .cart-summary-card { position: static; margin-top: 16px; }
 }
+
+.qty-display-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.qty-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #9ca3af; /* Abu-abu muda */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.qty-badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    background: #f0fdf4; /* Background hijau sangat muda */
+    color: #16a34a; /* Teks hijau */
+    padding: 6px 16px;
+    border-radius: 10px;
+    border: 1px solid #bbf7d0;
+    width: fit-content;
+}
+
+.qty-number {
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.qty-unit {
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0.8;
+}
 </style>
 
 <div class="cart-page">
@@ -286,10 +324,13 @@
                         @endif
 
                         <div class="cart-item-price-row">
-                            <div class="qty-control">
-                                <button onclick="changeQty('{{ $id }}', -1)">−</button>
-                                <span id="qty-{{ $id }}">{{ $item['qty'] }}</span>
-                                <button onclick="changeQty('{{ $id }}', 1)">+</button>
+                            <div class="qty-display-wrapper">
+                                <div class="qty-badge">
+                                    <span class="qty-number" id="qty-{{ $id }}">
+                                        {{ $item['qty'] }}
+                                    </span>
+                                    <span class="qty-unit">Porsi</span>
+                                </div>
                             </div>
                             <div class="text-end">
                                 <div class="item-subtotal" id="subtotal-{{ $id }}">Rp {{ number_format($subtotal) }}</div>

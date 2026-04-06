@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model {
+class Order extends Model
+{
     use HasFactory;
 
     protected $fillable = [
@@ -17,14 +20,33 @@ class Order extends Model {
         'status',
         'total_price',
         'notes',
-        'payment_proof',
+        // payment_proof dihapus dari sini
     ];
 
-    public function variant() {
+    // ─── Relasi ───────────────────────────────────────────────
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function variant()
+    {
         return $this->belongsTo(MenuVariant::class, 'menu_variant_id');
     }
 
-    public function schedule() {
-    return $this->hasOne(OrderSchedule::class, 'order_id');
+    public function schedule()
+    {
+        return $this->hasOne(OrderSchedule::class, 'order_id');
+    }
+
+    public function addons()
+    {
+        return $this->hasMany(OrderAddon::class, 'order_id');
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
     }
 }

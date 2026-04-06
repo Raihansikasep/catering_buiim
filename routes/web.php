@@ -22,6 +22,9 @@ use App\Http\Controllers\Admin\ExpenseCategoryController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\MenuAddonController;
 
+use App\Http\Controllers\Pelanggan\PaymentController;
+use App\Http\Controllers\Admin\AdminPaymentController;
+
 // OWNER
 use App\Http\Controllers\Owner\OrderController as OwnerOrderController;
 
@@ -85,6 +88,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/my-orders/{id}', [App\Http\Controllers\Pelanggan\OrderController::class, 'show'])
         ->name('my.orders.detail');
 
+        // Form upload bukti bayar
+    Route::get('/orders/{order}/payment', [PaymentController::class, 'create'])
+        ->name('payment.create');
+
+    // Submit bukti bayar
+    Route::post('/orders/{order}/payment', [PaymentController::class, 'store'])
+        ->name('payment.store');
+
+
 });
 
 /*
@@ -120,6 +132,23 @@ Route::prefix('admin')
         Route::resource('expenses', ExpenseController::class);
 
         Route::resource('menu-addons', MenuAddonController::class);
+
+        // Daftar pembayaran
+    Route::get('/payments', [AdminPaymentController::class, 'index'])
+        ->name('payments.index');
+
+    // Detail pembayaran
+    Route::get('/payments/{payment}', [AdminPaymentController::class, 'show'])
+        ->name('payments.show');
+
+    // Konfirmasi
+    Route::post('/payments/{payment}/confirm', [AdminPaymentController::class, 'confirm'])
+        ->name('payments.confirm');
+
+    // Tolak
+    Route::post('/payments/{payment}/reject', [AdminPaymentController::class, 'reject'])
+        ->name('payments.reject');
+
     });
 
 /*

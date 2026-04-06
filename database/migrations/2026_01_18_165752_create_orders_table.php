@@ -21,7 +21,6 @@ return new class extends Migration
             $table->enum('status', ['menunggu','sudah_bayar','sedang_diproses','siap_dikirim','selesai'])->default('menunggu');
             $table->decimal('total_price', 10, 2);
             $table->text('notes')->nullable();
-            $table->string('payment_proof')->nullable();
             $table->timestamps();
         });
     }
