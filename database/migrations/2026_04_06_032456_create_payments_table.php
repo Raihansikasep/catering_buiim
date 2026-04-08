@@ -8,10 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // ─── 1. Hapus kolom payment_proof dari tabel orders ───
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('payment_proof');
-        });
+
 
         // ─── 2. Buat tabel payments baru ─────────────────────
         Schema::create('payments', function (Blueprint $table) {
