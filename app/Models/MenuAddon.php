@@ -9,10 +9,7 @@ class MenuAddon extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'price'
-    ];
+    protected $fillable = ['menu_id', 'name', 'price'];
 
     public function menu()
     {

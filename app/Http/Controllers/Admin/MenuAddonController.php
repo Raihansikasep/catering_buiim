@@ -2,30 +2,34 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller; // INI YANG BENAR
+use App\Http\Controllers\Controller;
 use App\Models\MenuAddon;
+use App\Models\Menu;
 use Illuminate\Http\Request;
+
 class MenuAddonController extends Controller
 {
     public function index()
     {
-        $addons = MenuAddon::latest()->get();
+        $addons = MenuAddon::with('menu')->latest()->get();
         return view('admin.menu-addons.index', compact('addons'));
     }
 
     public function create()
     {
-        return view('admin.menu-addons.create');
+        $menus = Menu::all();
+        return view('admin.menu-addons.create', compact('menus'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
+            'menu_id' => 'required|exists:menus,id',
+            'name'    => 'required|string|max:255',
+            'price'   => 'required|numeric',
         ]);
 
-        MenuAddon::create($request->all());
+        MenuAddon::create($request->only('menu_id', 'name', 'price'));
 
         return redirect()->route('admin.menu-addons.index')
             ->with('success', 'Addon berhasil ditambahkan');
@@ -34,18 +38,19 @@ class MenuAddonController extends Controller
     public function edit($id)
     {
         $addon = MenuAddon::findOrFail($id);
-        return view('admin.menu-addons.edit', compact('addon'));
+        $menus = Menu::all();
+        return view('admin.menu-addons.edit', compact('addon', 'menus'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'price' => 'required|numeric',
+            'menu_id' => 'required|exists:menus,id',
+            'name'    => 'required|string|max:255',
+            'price'   => 'required|numeric',
         ]);
 
-        $addon = MenuAddon::findOrFail($id);
-        $addon->update($request->all());
+        MenuAddon::findOrFail($id)->update($request->only('menu_id', 'name', 'price'));
 
         return redirect()->route('admin.menu-addons.index')
             ->with('success', 'Addon berhasil diupdate');

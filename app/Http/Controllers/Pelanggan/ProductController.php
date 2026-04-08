@@ -19,9 +19,9 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $menu = Menu::with(['category','variants','items'])->findOrFail($id);
-        $addons = MenuAddon::all();
+        $menu = Menu::with(['category', 'variants', 'items', 'addons'])->findOrFail($id);
+        $addons = $menu->addons; // otomatis cuma addon milik menu ini
 
-        return view('pelanggan.product_detail', compact('menu','addons'));
+        return view('pelanggan.product_detail', compact('menu', 'addons'));
     }
 }

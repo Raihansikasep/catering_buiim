@@ -21,26 +21,22 @@
           <table class="items-center w-full mb-0 align-top border-collapse text-slate-600">
 
             <thead class="bg-gray-50">
-              <tr>
-                <th class="px-6 py-3 text-left text-xs font-bold uppercase">No</th>
-                <th class="px-6 py-3 text-left text-xs font-bold uppercase">Nama</th>
-                <th class="px-6 py-3 text-left text-xs font-bold uppercase">Harga</th>
-                <th class="px-6 py-3 text-center text-xs font-bold uppercase">Aksi</th>
-              </tr>
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">No</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Menu</th>  {{-- TAMBAH --}}
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Nama Addon</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase">Harga</th>
+                    <th class="px-6 py-3 text-center text-xs font-bold uppercase">Aksi</th>
+                </tr>
             </thead>
 
             <tbody>
               @forelse ($addons as $addon)
               <tr class="border-b">
                 <td class="px-6 py-3">{{ $loop->iteration }}</td>
-
-                <td class="px-6 py-3 font-medium">
-                  {{ $addon->name }}
-                </td>
-
-                <td class="px-6 py-3 text-sm">
-                  Rp {{ number_format($addon->price, 0, ',', '.') }}
-                </td>
+                <td class="px-6 py-3 text-sm">{{ $addon->menu->name ?? '-' }}</td>  {{-- TAMBAH --}}
+                <td class="px-6 py-3 font-medium">{{ $addon->name }}</td>
+                <td class="px-6 py-3 text-sm">Rp {{ number_format($addon->price, 0, ',', '.') }}</td>
 
                 <td class="px-6 py-3 text-center space-x-2">
 

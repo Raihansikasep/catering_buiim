@@ -236,78 +236,92 @@ body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(-
 .commitment-item-title { font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 6px; }
 .commitment-item-desc { font-size: 0.83rem; color: rgba(255,255,255,0.45); line-height: 1.7; font-weight: 300; }
 
-/* ===== FEATURES ===== */
-.features-section {
-    padding: 100px 0;
-    background: var(--cream);
-}
-.features-section .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
 
-.feature-card-premium {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 40px 32px;
-    position: relative; overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer;
+/* KEUNGGULAN */
+.keunggulan-section { padding: 90px 0; background: #f8faf8; }
+.section-eyebrow {
+    display: inline-block;
+    background: #f0fdf4;
+    color: #16a34a;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 30px;
+    margin-bottom: 14px;
 }
-.feature-card-premium::after {
+.section-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: #0f1c0f;
+    margin-bottom: 12px;
+}
+.section-sub { color: #777; font-size: 0.9rem; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+.feature-card-new {
+    background: #fff;
+    border-radius: 24px;
+    border: 1px solid #e8f5e9;
+    padding: 36px 28px;
+    height: 100%;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+}
+.feature-card-new::before {
     content: '';
-    position: absolute; inset: 0;
-    border-radius: 24px;
-    border: 2px solid var(--green-bright);
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, #16a34a, #4ade80);
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.25s;
 }
-.feature-card-premium:hover { transform: translateY(-6px); box-shadow: 0 24px 56px rgba(12,34,16,0.1); }
-.feature-card-premium:hover::after { opacity: 1; }
+.feature-card-new:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(22,163,74,0.1); border-color: #bbf7d0; }
+.feature-card-new:hover::before { opacity: 1; }
 
-.feature-card-bg-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 5rem; font-weight: 700;
-    color: rgba(44,90,48,0.05);
-    position: absolute; top: 12px; right: 20px;
-    line-height: 1; letter-spacing: -0.04em;
-}
-.feature-emoji {
-    width: 60px; height: 60px; border-radius: 18px;
-    background: var(--green-light);
+.feature-icon-new {
+    width: 56px; height: 56px;
+    background: #f0fdf4;
+    border-radius: 16px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem; margin-bottom: 24px;
-    transition: background 0.3s;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    transition: all 0.25s;
 }
-.feature-card-premium:hover .feature-emoji { background: var(--green-bright); }
-.feature-card-title { font-weight: 700; font-size: 1.05rem; color: var(--text-dark); margin-bottom: 12px; }
-.feature-card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; font-weight: 300; }
-.btn-feature-more {
+.feature-card-new:hover .feature-icon-new { background: #16a34a; }
+
+.feature-title-new { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: #0f1c0f; margin-bottom: 10px; }
+.feature-desc-new  { color: #777; font-size: 0.85rem; line-height: 1.7; margin-bottom: 16px; }
+
+.btn-read-more {
     display: inline-flex; align-items: center; gap: 6px;
-    font-size: 0.8rem; font-weight: 600; color: var(--green-bright);
+    font-size: 0.8rem; font-weight: 700; color: #16a34a;
     background: none; border: none; padding: 0; cursor: pointer;
-    font-family: 'Outfit', sans-serif;
     transition: gap 0.2s;
 }
-.btn-feature-more:hover { gap: 10px; }
+.btn-read-more:hover { gap: 10px; }
 
-/* ===== MODAL ===== */
-.modal-content { border-radius: 24px; border: none; overflow: hidden; font-family: 'Outfit', sans-serif; }
-.modal-header-premium {
-    background: var(--green-deep); padding: 28px 32px;
-    border: none; display: flex; align-items: center; justify-content: space-between;
-}
-.modal-header-premium .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #fff; font-weight: 600; }
-.modal-header-premium .btn-close { filter: invert(1); opacity: 0.7; }
-.modal-body-premium { padding: 32px; }
-.modal-body-premium p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.85; font-weight: 300; }
-.modal-body-premium hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+/* MODAL */
+.modal-content { border-radius: 20px; border: none; overflow: hidden; }
+.modal-header-green { background: #0f1c0f; padding: 24px 28px; border: none; }
+.modal-header-green .modal-title { font-family: 'DM Serif Display', serif; color: #fff; font-size: 1.3rem; }
+.modal-header-green .btn-close { filter: invert(1); opacity: 0.7; }
+.modal-body { padding: 28px; }
 
 /* ANIMATIONS */
-.fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-.fade-up-delay-1 { transition-delay: 0.1s; }
-.fade-up-delay-2 { transition-delay: 0.2s; }
-.fade-up-delay-3 { transition-delay: 0.3s; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { animation: fadeUp 0.6s ease forwards; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+
+@media (max-width: 768px) {
+    .about-hero { padding: 70px 0 60px; }
+    .story-section, .keunggulan-section { padding: 60px 0; }
+    .komitmen-section { padding: 60px 0; }
+}
 
 @media (max-width: 1024px) {
     .about-hero .container { grid-template-columns: 1fr; gap: 48px; }
@@ -464,60 +478,62 @@ body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(-
 </div>
 
 
-{{-- FEATURES --}}
-<div class="features-section">
+<div class="keunggulan-section">
     <div class="container">
-
-        <div style="text-align:center; max-width:560px; margin:0 auto;">
-            <div class="section-eyebrow" style="margin:0 auto 16px; width:fit-content;">Keunggulan Kami</div>
-            <h2 class="section-title">Kenapa Pilih <em>Dapur Bu Iim?</em></h2>
-            <p class="section-text" style="margin-top:12px;">Kami berkomitmen menghadirkan masakan rumahan berkualitas dengan bahan terbaik, rasa lezat, dan proses higienis.</p>
+        <div class="text-center mb-5">
+            <div class="section-eyebrow">Keunggulan Kami</div>
+            <h2 class="section-heading">Kenapa Pilih Dapur Bu Iim?</h2>
+            <p class="section-sub">Kami berkomitmen menghadirkan masakan rumahan berkualitas dengan bahan terbaik, rasa lezat, dan proses higienis.</p>
         </div>
 
-        <div class="features-grid">
-
-            <div class="feature-card-premium fade-up">
-                <div class="feature-card-bg-num">01</div>
-                <div class="feature-emoji">🌿</div>
-                <div class="feature-card-title">Bahan Berkualitas</div>
-                <p class="feature-card-desc">Menggunakan bahan segar pilihan dari supplier terpercaya untuk kualitas terbaik setiap hari tanpa kompromi.</p>
-                <button class="btn-feature-more"
-                    data-bs-toggle="modal" data-bs-target="#featureModal"
-                    data-title="Bahan Berkualitas"
-                    data-desc="Kami hanya menggunakan bahan segar pilihan dari supplier terpercaya."
-                    data-full="Setiap bahan dipilih dengan standar tinggi, memastikan kebersihan, kesegaran, dan kualitas terbaik sehingga menghasilkan hidangan yang sehat, lezat, dan bernutrisi untuk seluruh keluarga Anda.">
-                    Baca selengkapnya →
-                </button>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 fade-up delay-1">
+                <div class="feature-card-new">
+                    <div class="feature-icon-new">🌿</div>
+                    <div class="feature-title-new">Bahan Berkualitas</div>
+                    <p class="feature-desc-new">Menggunakan bahan segar pilihan dari supplier terpercaya untuk kualitas terbaik setiap hari.</p>
+                    <button class="btn-read-more"
+                        data-bs-toggle="modal"
+                        data-bs-target="#featureModal"
+                        data-title="Bahan Berkualitas"
+                        data-desc="Kami hanya menggunakan bahan segar pilihan dari supplier terpercaya."
+                        data-full="Setiap bahan dipilih dengan standar tinggi, memastikan kebersihan, kesegaran, dan kualitas terbaik sehingga menghasilkan hidangan yang sehat, lezat, dan bernutrisi.">
+                        Baca selengkapnya →
+                    </button>
+                </div>
             </div>
 
-            <div class="feature-card-premium fade-up fade-up-delay-2">
-                <div class="feature-card-bg-num">02</div>
-                <div class="feature-emoji">🍱</div>
-                <div class="feature-card-title">Masakan Rumahan</div>
-                <p class="feature-card-desc">Cita rasa khas rumahan yang autentik dengan resep tradisional dan sentuhan profesional yang memanjakan lidah.</p>
-                <button class="btn-feature-more"
-                    data-bs-toggle="modal" data-bs-target="#featureModal"
-                    data-title="Masakan Rumahan"
-                    data-desc="Menghadirkan rasa rumahan yang autentik dan menggugah selera."
-                    data-full="Setiap hidangan dimasak dengan resep tradisional dan sentuhan profesional, memberikan rasa yang familiar, lezat, dan cocok untuk semua kalangan, dari anak-anak hingga orang dewasa.">
-                    Baca selengkapnya →
-                </button>
+            <div class="col-lg-4 col-md-6 fade-up delay-2">
+                <div class="feature-card-new">
+                    <div class="feature-icon-new">🍱</div>
+                    <div class="feature-title-new">Masakan Rumahan</div>
+                    <p class="feature-desc-new">Cita rasa khas rumahan yang autentik dengan resep tradisional dan sentuhan profesional.</p>
+                    <button class="btn-read-more"
+                        data-bs-toggle="modal"
+                        data-bs-target="#featureModal"
+                        data-title="Masakan Rumahan"
+                        data-desc="Menghadirkan rasa rumahan yang autentik dan menggugah selera."
+                        data-full="Setiap hidangan dimasak dengan resep tradisional dan sentuhan profesional, memberikan rasa yang familiar, lezat, dan cocok untuk semua kalangan.">
+                        Baca selengkapnya →
+                    </button>
+                </div>
             </div>
 
-            <div class="feature-card-premium fade-up fade-up-delay-3">
-                <div class="feature-card-bg-num">03</div>
-                <div class="feature-emoji">✨</div>
-                <div class="feature-card-title">Aman & Higienis</div>
-                <p class="feature-card-desc">Proses memasak dengan standar kebersihan tinggi tanpa bahan berbahaya, aman untuk seluruh keluarga Anda.</p>
-                <button class="btn-feature-more"
-                    data-bs-toggle="modal" data-bs-target="#featureModal"
-                    data-title="Aman & Higienis"
-                    data-desc="Semua proses dilakukan dengan standar kebersihan tinggi."
-                    data-full="Kami memastikan setiap proses pengolahan makanan dilakukan secara higienis tanpa bahan berbahaya, sehingga aman dikonsumsi setiap hari oleh seluruh anggota keluarga Anda termasuk anak-anak dan lansia.">
-                    Baca selengkapnya →
-                </button>
+            <div class="col-lg-4 col-md-6 fade-up delay-3">
+                <div class="feature-card-new">
+                    <div class="feature-icon-new">✨</div>
+                    <div class="feature-title-new">Aman & Higienis</div>
+                    <p class="feature-desc-new">Proses memasak dengan standar kebersihan tinggi tanpa bahan berbahaya, aman untuk keluarga.</p>
+                    <button class="btn-read-more"
+                        data-bs-toggle="modal"
+                        data-bs-target="#featureModal"
+                        data-title="Aman & Higienis"
+                        data-desc="Semua proses dilakukan dengan standar kebersihan tinggi."
+                        data-full="Kami memastikan setiap proses pengolahan makanan dilakukan secara higienis tanpa bahan berbahaya, sehingga aman dikonsumsi setiap hari oleh keluarga Anda.">
+                        Baca selengkapnya →
+                    </button>
+                </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -528,18 +544,19 @@ body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(-
 <div class="modal fade" id="featureModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header-premium">
+            <div class="modal-header-green d-flex align-items-center justify-content-between">
                 <h5 class="modal-title" id="modalTitle"></h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body-premium">
-                <p style="font-weight:500; color:var(--text-dark); margin-bottom:16px;" id="modalDesc"></p>
-                <hr>
-                <p id="modalFull"></p>
+            <div class="modal-body">
+                <p class="text-muted mb-3" id="modalDesc" style="font-size:0.9rem;"></p>
+                <hr style="border-color:#f0fdf4;">
+                <p id="modalFull" style="font-size:0.88rem; color:#333; line-height:1.8;"></p>
             </div>
         </div>
     </div>
 </div>
+
 
 <script>
 document.querySelectorAll('[data-bs-target="#featureModal"]').forEach(btn => {

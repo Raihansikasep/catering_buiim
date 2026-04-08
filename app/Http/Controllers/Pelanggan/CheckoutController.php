@@ -43,14 +43,15 @@ class CheckoutController extends Controller
         }
 
         $today        = Carbon::today();
-        $scheduleDate = Carbon::parse($request->schedule_date);
+        $scheduleDate = Carbon::parse($request->schedule_date)->startOfDay();
 
-        if ($scheduleDate->lessThan($today)) {
+        if ($scheduleDate->lte($today)) {
             return back()->withInput()
                 ->with('error', 'Tanggal acara tidak boleh di masa lalu!');
         }
 
-        if ($scheduleDate->lessThan($today->copy()->addDays(2))) {
+        // H-2 = selisih minimal 2 hari, jadi tgl acara harus >= today + 2
+        if ($scheduleDate->lt($today->copy()->addDays(2))) {
             return back()->withInput()
                 ->with('error', 'Minimal pemesanan H-2 sebelum acara!');
         }
@@ -115,4 +116,3 @@ class CheckoutController extends Controller
         ]);
     }
 }
- 

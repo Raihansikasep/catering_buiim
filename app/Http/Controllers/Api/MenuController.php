@@ -52,7 +52,7 @@ class MenuController extends Controller
     public function show($id)
     {
         $menu   = Menu::with(['category', 'variants', 'items'])->findOrFail($id);
-        $addons = MenuAddon::all();
+        $addons = MenuAddon::where('menu_id', $menu->id)->get(); // ← fix
 
         return response()->json([
             'status' => true,
