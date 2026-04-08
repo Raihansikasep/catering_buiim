@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-
+        
 
         // ─── 2. Buat tabel payments baru ─────────────────────
         Schema::create('payments', function (Blueprint $table) {
