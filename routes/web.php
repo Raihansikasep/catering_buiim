@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\OrderScheduleController;
 use App\Http\Controllers\Admin\ExpenseCategoryController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\MenuAddonController;
+use App\Http\Controllers\Admin\BlogController;
 
 use App\Http\Controllers\Pelanggan\PaymentController;
 use App\Http\Controllers\Admin\AdminPaymentController;
@@ -133,6 +134,8 @@ Route::prefix('admin')
 
         Route::resource('menu-addons', MenuAddonController::class);
 
+        Route::resource('blogs', BlogController::class);
+        
         // Daftar pembayaran
     Route::get('/payments', [AdminPaymentController::class, 'index'])
         ->name('payments.index');

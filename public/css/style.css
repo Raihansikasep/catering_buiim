@@ -103,7 +103,7 @@
 }
 
 body {
-    padding-top: 120px;
+    padding-top: 0px;
 }
 .user-card a,
 .user-card button {
@@ -587,7 +587,7 @@ body {
         position: relative;
         min-height: 450px;
     }
-    
+
     #header-carousel .carousel-item img {
         position: absolute;
         width: 100%;

@@ -11,7 +11,7 @@
                 </h2>
 
                 <p class="text-light">
-                    Menyediakan catering harian dan acara dengan menu sehat, lezat, 
+                    Menyediakan catering harian dan acara dengan menu sehat, lezat,
                     dan higienis untuk keluarga dan kebutuhan Anda.
                 </p>
 
@@ -45,7 +45,7 @@
             <div class="col-lg-3 col-md-6">
                 <h5 class="footer-title">Hubungi Kami</h5>
                 <p>
-                    Siap menikmati masakan rumahan yang lezat dan sehat? 
+                    Siap menikmati masakan rumahan yang lezat dan sehat?
                     Hubungi kami sekarang dan pesan sesuai kebutuhan Anda.
                 </p>
 
@@ -60,10 +60,10 @@
     <!-- COPYRIGHT -->
     <div class="footer-bottom text-center py-3">
         <p class="mb-0">
-            &copy; 2026 
+            &copy; 2026
             <span class="text-success">Dapur</span>
             <span class="text-secondary">Bu</span>
-            <span class="text-success">Iim</span>. 
+            <span class="text-success">Iim</span>.
             All Rights Reserved.
         </p>
     </div>
