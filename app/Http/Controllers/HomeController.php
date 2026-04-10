@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Menu;
+use App\Models\Blog; // 🔥 TAMBAH INI
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,6 +19,9 @@ class HomeController extends Controller
                     ->take(4)
                     ->get();
 
-        return view('pelanggan.index', compact('categories','menus'));
+        // 🔥 TAMBAH BLOG
+        $blogs = Blog::latest()->take(3)->get();
+
+        return view('pelanggan.index', compact('categories','menus','blogs'));
     }
 }

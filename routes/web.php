@@ -10,6 +10,7 @@ use App\Http\Controllers\Pelanggan\ProductController;
 use App\Http\Controllers\Pelanggan\CartController;
 use App\Http\Controllers\Pelanggan\CheckoutController;
 use App\Http\Controllers\Pelanggan\ProfileController;
+use App\Http\Controllers\Pelanggan\BlogController as PelangganBlogController;
 
 // ADMIN
 use App\Http\Controllers\Admin\CategoryController;
@@ -41,9 +42,8 @@ Route::get('/about', function () {
     return view('pelanggan.about');
 })->name('about');
 
-Route::get('/blog', function () {
-    return view('pelanggan.blog');
-})->name('blog');
+Route::get('/blog', [PelangganBlogController::class, 'index'])->name('blog');
+Route::get('/blog/{slug}', [PelangganBlogController::class, 'show'])->name('blog.show');
 
 Route::get('/feature', function () {
     return view('pelanggan.feature');
@@ -135,7 +135,7 @@ Route::prefix('admin')
         Route::resource('menu-addons', MenuAddonController::class);
 
         Route::resource('blogs', BlogController::class);
-        
+
         // Daftar pembayaran
     Route::get('/payments', [AdminPaymentController::class, 'index'])
         ->name('payments.index');

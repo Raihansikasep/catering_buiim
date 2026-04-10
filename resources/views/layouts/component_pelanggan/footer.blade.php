@@ -1,4 +1,5 @@
-<div class="container-fluid footer-modern mt-5 pt-5">
+<!-- Footer Start -->
+<footer class="footer-modern">
     <div class="container py-5">
         <div class="row g-5">
 
@@ -41,7 +42,7 @@
                 <a class="footer-link" href="{{ route('contact') }}">Kontak</a>
             </div>
 
-            <!-- CTA ORDER (GANTI NEWSLETTER) -->
+            <!-- HUBUNGI KAMI -->
             <div class="col-lg-3 col-md-6">
                 <h5 class="footer-title">Hubungi Kami</h5>
                 <p>
@@ -58,7 +59,7 @@
     </div>
 
     <!-- COPYRIGHT -->
-    <div class="footer-bottom text-center py-3">
+    <div class="footer-bottom text-center py-4">
         <p class="mb-0">
             &copy; 2026
             <span class="text-success">Dapur</span>
@@ -67,4 +68,5 @@
             All Rights Reserved.
         </p>
     </div>
-</div>
+</footer>
+<!-- Footer End -->

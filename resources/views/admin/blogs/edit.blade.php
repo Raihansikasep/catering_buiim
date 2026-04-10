@@ -6,94 +6,58 @@
     <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white shadow-xl rounded-2xl">
 
       {{-- HEADER --}}
-      <div class="p-6 pb-0 mb-4 flex justify-between items-center">
-        <h6 class="text-lg font-semibold">Blog Table</h6>
-
-        <a href="{{ route('admin.blogs.create') }}"
-           class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
-          + Tambah Blog
-        </a>
+      <div class="p-6 pb-0 mb-4">
+        <h6 class="text-lg font-semibold">Edit Blog</h6>
       </div>
 
-      {{-- SUCCESS --}}
-      @if(session('success'))
-        <div class="mx-6 mb-4 p-3 text-white bg-green-500 rounded">
-          {{ session('success') }}
+      {{-- ERROR --}}
+      @if ($errors->any())
+        <div class="mx-6 mb-4 p-3 text-white bg-red-500 rounded">
+          @foreach ($errors->all() as $error)
+            <div>• {{ $error }}</div>
+          @endforeach
         </div>
       @endif
 
-      {{-- TABLE --}}
-      <div class="flex-auto px-0 pt-0 pb-2">
-        <div class="p-0 overflow-x-auto">
-          <table class="items-center w-full mb-0 align-top border-collapse text-slate-600">
+      {{-- FORM --}}
+      <div class="p-6 pt-0">
+        <form action="{{ route('admin.blogs.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          @method('PUT')
 
-            <thead class="bg-gray-50">
-              <tr>
-                <th class="px-6 py-3 text-left text-xs font-bold uppercase">No</th>
-                <th class="px-6 py-3 text-left text-xs font-bold uppercase">Judul</th>
-                <th class="px-6 py-3 text-left text-xs font-bold uppercase">Konten</th>
-                <th class="px-6 py-3 text-center text-xs font-bold uppercase">Gambar</th>
-                <th class="px-6 py-3 text-center text-xs font-bold uppercase">Aksi</th>
-              </tr>
-            </thead>
+          {{-- TITLE --}}
+          <div class="mb-4">
+            <label class="block mb-1 text-sm font-bold">Judul</label>
+            <input type="text" name="title"
+                   value="{{ old('title', $blog->title) }}"
+                   class="w-full px-3 py-2 border rounded">
+          </div>
 
-            <tbody>
-              @forelse ($blog as $blogs)
-              <tr class="border-b">
-                <td class="px-6 py-3">{{ $loop->iteration }}</td>
+          {{-- CONTENT --}}
+          <div class="mb-4">
+            <label class="block mb-1 text-sm font-bold">Konten</label>
+            <textarea name="content"
+                      class="w-full px-3 py-2 border rounded"
+                      rows="5">{{ old('content', $blog->content) }}</textarea>
+          </div>
 
-                <td class="px-6 py-3 font-medium">
-                  {{ $blogs->title }}
-                </td>
+          {{-- IMAGE --}}
+          <div class="mb-4">
+            <label class="block mb-1 text-sm font-bold">Gambar</label>
+            <input type="file" name="image">
 
-                <td class="px-6 py-3 text-sm">
-                  {{ \Illuminate\Support\Str::limit($blogs->content, 50) }}
-                </td>
+            @if($blog->image)
+              <img src="{{ asset('storage/'.$blog->image) }}"
+                   class="mt-2 h-20 rounded">
+            @endif
+          </div>
 
-                <td class="px-6 py-3 text-center">
-                  @if ($blogs->image)
-                    <img src="{{ asset('storage/'.$blogs->image) }}"
-                         class="mx-auto h-10 w-10 object-cover rounded">
-                  @else
-                    <span class="text-gray-400 text-xs">No Image</span>
-                  @endif
-                </td>
+          {{-- BUTTON --}}
+          <button class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-4 py-2 text-white rounded">
+            Update
+          </button>
 
-                <td class="px-6 py-3 text-center space-x-2">
-
-                  {{-- EDIT --}}
-                  <a href="{{ route('admin.blogs.edit', $blogs->id) }}"
-                     class="bg-gradient-to-tl from-emerald-500 to-teal-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
-                    Edit
-                  </a>
-
-                  {{-- DELETE --}}
-                  <form action="{{ route('admin.blogs.destroy', $blogs->id) }}"
-                        method="POST"
-                        class="inline">
-                    @csrf
-                    @method('DELETE')
-                    <button onclick="return confirm('Yakin hapus blog?')"
-                            class="bg-gradient-to-tl from-red-600 to-red-600 px-2.5 text-xs rounded-1.8 py-1.4 inline-block font-bold uppercase text-white">
-                      Delete
-                    </button>
-                  </form>
-
-                </td>
-              </tr>
-
-              @empty
-              <tr>
-                <td colspan="5" class="px-6 py-4 text-center text-gray-400">
-                  Data blog masih kosong
-                </td>
-              </tr>
-              @endforelse
-
-            </tbody>
-
-          </table>
-        </div>
+        </form>
       </div>
 
     </div>

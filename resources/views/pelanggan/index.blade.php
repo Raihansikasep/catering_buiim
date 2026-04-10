@@ -563,6 +563,65 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
 .reveal.on{opacity:1;transform:translateY(0)}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+/* ── SEC HEAD ── */
+.sec-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    flex-wrap: nowrap;   /* ← jangan wrap, biar link tetap di kanan */
+    gap: 16px;
+}
+
+/* HP: baru wrap */
+@media(max-width: 600px) {
+    .sec-head {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 28px;
+    }
+
+    /* Link pindah ke baris bawah, rata kiri */
+    .sec-head > a.btn-link {
+        order: 3;
+        align-self: flex-start;
+    }
+
+    /* Feat grid jadi 1 kolom tapi lebih compact */
+    .feat-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    /* Card lebih compact di HP */
+    .feat-card {
+        padding: 24px 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    /* Nomor dekoratif disembunyikan di HP biar ga makan space */
+    .feat-card .feat-n {
+        display: none;
+    }
+
+    /* Icon lebih kecil */
+    .feat-card .feat-icon {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        margin-bottom: 0;
+    }
+
+    /* Teks di sebelah kanan icon */
+    .feat-card-text {
+        flex: 1;
+    }
+}
+
 </style>
 
 {{-- HERO CAROUSEL --}}
@@ -694,28 +753,40 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
                 <div class="eyebrow">Keunggulan Kami</div>
                 <h2 class="sec-title">Kenapa Pilih<br><em>Dapur Bu Iim?</em></h2>
             </div>
-            <a href="{{ route('about') }}" class="btn-link" style="align-self:flex-end">Selengkapnya →</a>
         </div>
+
         <div class="feat-grid">
             <div class="feat-card reveal d1">
                 <div class="feat-n">01</div>
                 <div class="feat-icon">🌿</div>
-                <div class="feat-title">Bahan Berkualitas</div>
-                <p class="feat-desc">Setiap bahan diseleksi ketat dari supplier terpercaya, memastikan kesegaran dan nilai nutrisi terbaik di setiap hidangan.</p>
+                <div class="feat-card-text">
+                    <div class="feat-title">Bahan Berkualitas</div>
+                    <p class="feat-desc">Setiap bahan diseleksi ketat dari supplier terpercaya, memastikan kesegaran dan nilai nutrisi terbaik di setiap hidangan.</p>
+                </div>
             </div>
             <div class="feat-card reveal d2">
                 <div class="feat-n">02</div>
                 <div class="feat-icon">🍱</div>
-                <div class="feat-title">Masakan Rumahan</div>
-                <p class="feat-desc">Cita rasa khas rumahan yang autentik menggunakan resep tradisional yang telah teruji dan disukai banyak keluarga.</p>
+                <div class="feat-card-text">
+                    <div class="feat-title">Masakan Rumahan</div>
+                    <p class="feat-desc">Cita rasa khas rumahan yang autentik menggunakan resep tradisional yang telah teruji dan disukai banyak keluarga.</p>
+                </div>
             </div>
             <div class="feat-card reveal d3">
                 <div class="feat-n">03</div>
                 <div class="feat-icon">✨</div>
-                <div class="feat-title">Aman &amp; Higienis</div>
-                <p class="feat-desc">Proses memasak dilakukan dengan standar kebersihan tinggi tanpa bahan berbahaya, aman untuk seluruh keluarga.</p>
+                <div class="feat-card-text">
+                    <div class="feat-title">Aman &amp; Higienis</div>
+                    <p class="feat-desc">Proses memasak dilakukan dengan standar kebersihan tinggi tanpa bahan berbahaya, aman untuk seluruh keluarga.</p>
+                </div>
             </div>
         </div>
+
+        {{-- Link di luar feat-grid, di bawah kartu --}}
+        <div class="cta-wrap reveal" style="text-align:center; margin-top:40px;">
+            <a href="{{ route('about') }}" class="btn-link">Selengkapnya →</a>
+        </div>
+
     </div>
 </section>
 
@@ -871,52 +942,69 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
             <div>
                 <div class="eyebrow">Artikel</div>
                 <h2 class="sec-title">Inspirasi & <em>Tips Masak</em></h2>
-                <p style="color:var(--ink-soft);font-size:.88rem;margin-top:10px;font-weight:300;max-width:420px">Tips, inspirasi, dan informasi seputar masakan rumahan untuk Anda.</p>
+                <p style="color:var(--ink-soft);font-size:.88rem;margin-top:10px;font-weight:300;max-width:420px">
+                    Tips, inspirasi, dan informasi seputar masakan rumahan untuk Anda.
+                </p>
             </div>
         </div>
+
         <div class="blog-grid">
-            <div class="blog-card reveal d1">
+
+            @forelse($blogs->take(3) as $blog)
+            <div class="blog-card reveal">
                 <div class="blog-img">
-                    <img src="img/blog-1.jpg" alt="Blog 1" loading="lazy">
-                    <span class="blog-date">10 Feb 2026</span>
+
+                    {{-- GAMBAR --}}
+                    @if($blog->image)
+                        <img src="{{ asset('storage/'.$blog->image) }}" alt="{{ $blog->title }}" loading="lazy">
+                    @else
+                        <img src="{{ asset('img/default.jpg') }}" alt="default" loading="lazy">
+                    @endif
+
+                    {{-- TANGGAL --}}
+                    <span class="blog-date">
+                        {{ $blog->created_at->format('d M Y') }}
+                    </span>
                 </div>
+
                 <div class="blog-body">
-                    <a href="#" class="blog-title-link">Tips Memilih Catering Sehat untuk Keluarga</a>
-                    <p class="blog-desc">Pelajari cara memilih catering dengan bahan berkualitas dan proses higienis untuk menjaga kesehatan keluarga Anda setiap hari.</p>
+
+                    {{-- JUDUL --}}
+                    <a href="{{ route('blog.show', $blog->slug) }}" class="blog-title-link">
+                        {{ $blog->title }}
+                    </a>
+
+                    {{-- DESKRIPSI --}}
+                    <p class="blog-desc">
+                        {{ \Illuminate\Support\Str::limit($blog->content, 120) }}
+                    </p>
+
+                    {{-- META --}}
                     <div class="blog-meta">
-                        <span><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Admin</span>
-                        <span><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1" y="2" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 5h9M4 1v2M7 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> 10 Feb 2026</span>
+                        <span>
+                            <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                                <circle cx="5.5" cy="5.5" r="4.5" stroke="currentColor" stroke-width="1.2"/>
+                                <path d="M5.5 3v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                            </svg>
+                            Admin
+                        </span>
+
+                        <span>
+                            <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                                <rect x="1" y="2" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                                <path d="M1 5h9M4 1v2M7 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                            </svg>
+                            {{ $blog->created_at->format('d M Y') }}
+                        </span>
                     </div>
+
                 </div>
             </div>
-            <div class="blog-card reveal d2">
-                <div class="blog-img">
-                    <img src="img/blog-2.jpg" alt="Blog 2" loading="lazy">
-                    <span class="blog-date">12 Feb 2026</span>
-                </div>
-                <div class="blog-body">
-                    <a href="#" class="blog-title-link">Kenapa Masakan Rumahan Lebih Sehat?</a>
-                    <p class="blog-desc">Masakan rumahan menggunakan bahan segar dan minim pengawet sehingga lebih aman dan sehat untuk dikonsumsi setiap hari bersama keluarga.</p>
-                    <div class="blog-meta">
-                        <span><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Admin</span>
-                        <span><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1" y="2" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 5h9M4 1v2M7 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> 12 Feb 2026</span>
-                    </div>
-                </div>
-            </div>
-            <div class="blog-card reveal d3">
-                <div class="blog-img">
-                    <img src="img/blog-3.jpg" alt="Blog 3" loading="lazy">
-                    <span class="blog-date">15 Feb 2026</span>
-                </div>
-                <div class="blog-body">
-                    <a href="#" class="blog-title-link">Tips Memilih Menu Catering untuk Acara</a>
-                    <p class="blog-desc">Bingung pilih menu? Simak tips memilih menu catering yang cocok untuk acara keluarga maupun kantor agar tamu merasa puas.</p>
-                    <div class="blog-meta">
-                        <span><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 3v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Admin</span>
-                        <span><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1" y="2" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 5h9M4 1v2M7 1v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> 15 Feb 2026</span>
-                    </div>
-                </div>
-            </div>
+
+            @empty
+                <p>Belum ada artikel</p>
+            @endforelse
+
         </div>
     </div>
 </section>
