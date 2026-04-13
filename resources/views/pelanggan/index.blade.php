@@ -803,70 +803,41 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
 
         {{-- CATEGORY TABS --}}
         <div class="cat-pills">
-            <a class="cat-pill active" data-bs-toggle="pill" href="#tab-all">Semua</a>
+            <button class="cat-pill active" onclick="filterHome('all', this)">Semua</button>
             @foreach($categories as $category)
-            <a class="cat-pill" data-bs-toggle="pill" href="#tab-{{ $category->id }}">{{ $category->name }}</a>
+                <button class="cat-pill" onclick="filterHome('{{ $category->id }}', this)">{{ $category->name }}</button>
             @endforeach
         </div>
 
-        {{-- TAB CONTENT --}}
-        <div class="tab-content">
-            <div id="tab-all" class="tab-pane fade show active">
-                <div class="prod-grid">
-                    @foreach($menus as $menu)
-                    <div class="prod-card reveal">
-                        <div class="prod-img">
-                            <img src="{{ asset('storage/'.$menu->image) }}" alt="{{ $menu->name }}" loading="lazy">
-                            <span class="prod-cat">{{ $menu->category->name }}</span>
-                        </div>
-                        <div class="prod-body">
-                            <div class="prod-name">{{ $menu->name }}</div>
-                            <div class="prod-price">Rp {{ number_format($menu->price) }}</div>
-                        </div>
-                        <div class="prod-foot">
-                            <a href="{{ route('product.detail', $menu->id) }}" class="btn-detail-p">
-                                Lihat Detail
-                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                    @endforeach
+        {{-- GRID PRODUK (Hanya ini yang dipakai) --}}
+        <div class="prod-grid" id="homeGrid">
+            @foreach($menus as $menu)
+            <div class="prod-card product-item-home reveal" data-cat="{{ $menu->category_id }}">
+                <div class="prod-img">
+                    <img src="{{ asset('storage/'.$menu->image) }}" alt="{{ $menu->name }}">
+                    <span class="prod-cat">{{ $menu->category->name }}</span>
                 </div>
-            </div>
-            @foreach($categories as $category)
-            <div id="tab-{{ $category->id }}" class="tab-pane fade">
-                <div class="prod-grid">
-                    @foreach($menus->where('category_id', $category->id) as $menu)
-                    <div class="prod-card reveal">
-                        <div class="prod-img">
-                            <img src="{{ asset('storage/'.$menu->image) }}" alt="{{ $menu->name }}" loading="lazy">
-                            <span class="prod-cat">{{ $category->name }}</span>
-                        </div>
-                        <div class="prod-body">
-                            <div class="prod-name">{{ $menu->name }}</div>
-                            <div class="prod-price">Rp {{ number_format($menu->price) }}</div>
-                        </div>
-                        <div class="prod-foot">
-                            <a href="{{ route('product.detail', $menu->id) }}" class="btn-detail-p">
-                                Lihat Detail
-                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                    @endforeach
+                <div class="prod-body">
+                    <div class="prod-name">{{ $menu->name }}</div>
+                    <div class="prod-price">Rp {{ number_format($menu->price) }}</div>
+                </div>
+                <div class="prod-foot">
+                    <a href="{{ route('product.detail', $menu->id) }}" class="btn-detail-p">
+                        Lihat Detail
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
                 </div>
             </div>
             @endforeach
         </div>
 
         <div class="cta-wrap reveal">
-            <a href="{{ route('product') }}" class="btn-outline">
-                Lihat Semua Menu
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
+            <a href="{{ route('product') }}" class="btn-outline">Lihat Semua Menu</a>
         </div>
     </div>
 </section>
+
+
 
 {{-- BANNER --}}
 <section class="banner-sec">
@@ -1008,7 +979,30 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
         </div>
     </div>
 </section>
+{{-- Masukkan Script ini di bagian paling bawah sebelum @endsection --}}
+<script>
+function filterHome(catId, btn) {
+    // Ubah status tombol aktif
+    document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
+    // Filter produk
+    const items = document.querySelectorAll('.product-item-home');
+    items.forEach(item => {
+        if (catId === 'all' || item.getAttribute('data-cat') === catId) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// Pastikan IntersectionObserver tetap jalan untuk animasi reveal
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on') });
+}, {threshold: .1});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 <script>
 // ── Carousel ──
 const slides = document.querySelectorAll('.hero-slide');

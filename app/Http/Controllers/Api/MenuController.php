@@ -36,7 +36,7 @@ class MenuController extends Controller
             'variants' => $menu->variants->map(fn($v) => [
                 'id'           => $v->id,
                 'name_variant' => $v->name_variant,
-                'name_menu'    => $v->name_menu,
+                'name_item'    => $v->name_item,
             ]),
         ]);
 
@@ -71,7 +71,7 @@ class MenuController extends Controller
                 'variants' => $menu->variants->map(fn($v) => [
                     'id'           => $v->id,
                     'name_variant' => $v->name_variant,
-                    'name_menu'    => $v->name_menu,
+                    'name_item'    => $v->name_item,
                     'description'  => $v->description,
                 ]),
                 'items' => $menu->items->map(fn($i) => [

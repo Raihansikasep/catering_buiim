@@ -21,8 +21,7 @@
   </head>
 
   <body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
-    <div class="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
-    <!-- sidenav  -->
+    <div class="absolute w-full dark:hidden min-h-75" style="background: linear-gradient(135deg, #1a3a2a 0%, #2d5a3d 60%, #1a3a2a 100%); min-height: 300px;"></div>    <!-- sidenav  -->
     @include('layouts.component_admin.sidebar')
     <!-- end sidenav -->
 
@@ -116,4 +115,6 @@
   <script src="{{ asset('admin/js/plugins/perfect-scrollbar.min.js')}}" async></script>
   <!-- main script file  -->
   <script src="{{ asset('admin/js/argon-dashboard-tailwind.js?v=1.0.1')}}" async></script>
+  <script src="{{ asset('admin/js/argon-dashboard-tailwind.js?v=1.0.1')}}" async></script>
+@stack('scripts')
 </html>

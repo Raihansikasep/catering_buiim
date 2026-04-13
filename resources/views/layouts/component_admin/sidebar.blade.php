@@ -149,34 +149,6 @@
         </a>
       </li>
 
-      {{-- AKUN --}}
-      <li class="w-full mt-4">
-        <h6 class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60">Akun</h6>
-      </li>
-
-      <li class="mt-0.5 w-full">
-        <a class="py-2.7 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 text-slate-700 transition-colors" href="#">
-          <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-            <i class="relative top-0 text-sm leading-normal text-slate-500 ni ni-single-02"></i>
-          </div>
-          <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Profil</span>
-        </a>
-      </li>
-
-      <li class="mt-0.5 w-full mb-4">
-        <div class="py-2.7 dark:text-white dark:opacity-80 text-sm my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 text-slate-700">
-          <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-            <i class="relative top-0 text-sm leading-normal text-red-500 ni ni-button-power"></i>
-          </div>
-          <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="text-sm text-red-500 font-semibold bg-transparent border-0 cursor-pointer p-0 m-0">
-              Logout
-            </button>
-          </form>
-        </div>
-      </li>
-
         </ul>
     </aside>
 

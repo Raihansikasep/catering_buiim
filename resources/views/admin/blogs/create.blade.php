@@ -1,79 +1,92 @@
 @extends('layouts.backend')
 
 @section('content')
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+:root{--font:'Plus Jakarta Sans',sans-serif;--surface:#fff;--surface2:#f9f8f5;--surface3:#f2f1ec;--border:rgba(0,0,0,0.07);--text1:#141210;--text2:#6a6760;--text3:#a9a59d;--green:#1a7f5a;--purple:#5b3fbe;--purple-bg:#f0eeff;--red:#c02828;--shadow-sm:0 2px 8px rgba(0,0,0,0.07);--r-sm:10px;--r-lg:20px;}
+*{box-sizing:border-box;}
+.adm{font-family:var(--font);}
+.adm-layout{display:grid;grid-template-columns:1fr 300px;gap:20px;}
+@media(max-width:860px){.adm-layout{grid-template-columns:1fr;}}
+.adm-card{background:#fff;border-radius:var(--r-lg);border:1px solid var(--border);box-shadow:var(--shadow-sm);}
+.adm-card-header{padding:20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;}
+.adm-card-title{font-weight:700;}
+.adm-card-body{padding:24px;}
+.form-group{margin-bottom:18px;}
+.form-label{font-size:12px;font-weight:700;margin-bottom:6px;display:block;}
+.form-control{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:13px;}
+textarea.form-control{min-height:120px;}
+.btn{padding:10px 20px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;}
+.btn-success{background:var(--green);color:#fff;}
+.btn-back{background:#eee;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:12px;}
+.info{font-size:12px;margin-bottom:10px;}
+</style>
+
+<div class="adm">
 <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
 @csrf
 
-<div class="w-full p-6 mx-auto">
-  <div class="flex flex-wrap -mx-3">
-    <div class="w-full max-w-full px-3 md:w-8/12">
-      <div class="relative flex flex-col bg-white shadow-xl rounded-2xl">
+<div class="adm-layout">
 
-        {{-- HEADER --}}
-        <div class="p-6 pb-0">
-          <div class="flex items-center">
-            <h2 class="mb-0">Tambah Blog</h2>
+  {{-- FORM --}}
+  <div>
+    <div class="adm-card">
 
-            <a href="{{ route('admin.blogs.index') }}"
-               class="ml-auto px-8 py-2 text-xs font-bold text-white bg-blue-500 rounded-lg">
-              Kembali
-            </a>
-          </div>
-        </div>
+      <div class="adm-card-header">
+        <div class="adm-card-title">✨ Tambah Blog</div>
+        <a href="{{ route('admin.blogs.index') }}" class="btn-back">← Kembali</a>
+      </div>
 
-        {{-- ERROR --}}
+      <div class="adm-card-body">
+
         @if ($errors->any())
-          <div class="mx-6 mt-4 p-3 text-white bg-red-500 rounded">
-            @foreach ($errors->all() as $error)
-              <div>• {{ $error }}</div>
-            @endforeach
-          </div>
+        <div style="background:#ffe5e5;padding:10px;border-radius:8px;margin-bottom:15px;">
+          @foreach ($errors->all() as $error)
+            <div>• {{ $error }}</div>
+          @endforeach
+        </div>
         @endif
 
-        {{-- BODY --}}
-        <div class="p-6">
-          <div class="flex flex-wrap -mx-3">
+        <div class="form-group">
+          <label class="form-label">Judul</label>
+          <input type="text" name="title" value="{{ old('title') }}" class="form-control">
+        </div>
 
-            {{-- JUDUL --}}
-            <div class="w-full px-3 md:w-6/12">
-              <label class="block mb-2 text-xs font-bold">Judul</label>
-              <input type="text" name="title"
-                     value="{{ old('title') }}"
-                     class="w-full px-3 py-2 border rounded-lg"
-                     required>
-            </div>
+        <div class="form-group">
+          <label class="form-label">Konten</label>
+          <textarea name="content" class="form-control">{{ old('content') }}</textarea>
+        </div>
 
-            {{-- GAMBAR --}}
-            <div class="w-full px-3 md:w-6/12">
-              <label class="block mb-2 text-xs font-bold">Gambar</label>
-              <input type="file" name="image"
-                     class="w-full px-3 py-2 border rounded-lg">
-            </div>
+        <div class="form-group">
+          <label class="form-label">Gambar</label>
+          <input type="file" name="image" class="form-control">
+        </div>
 
-            {{-- CONTENT --}}
-            <div class="w-full px-3 mt-4">
-              <label class="block mb-2 text-xs font-bold">Konten</label>
-              <textarea name="content"
-                        class="w-full px-3 py-2 border rounded-lg"
-                        rows="6"
-                        required>{{ old('content') }}</textarea>
-            </div>
-
-            {{-- BUTTON --}}
-            <div class="w-full px-3 mt-6">
-              <button type="submit"
-                      class="px-8 py-2 text-xs font-bold text-white bg-blue-500 rounded-lg">
-                Simpan
-              </button>
-            </div>
-
-          </div>
+        <div style="margin-top:10px;">
+          <button class="btn btn-success">✓ Simpan Blog</button>
+          <a href="{{ route('admin.blogs.index') }}" class="btn-back">Batal</a>
         </div>
 
       </div>
     </div>
   </div>
-</div>
 
+  {{-- SIDEBAR --}}
+  <div>
+    <div class="adm-card">
+      <div class="adm-card-header">
+        <div class="adm-card-title">📖 Panduan</div>
+      </div>
+      <div class="adm-card-body">
+        <div class="info">📝 Judul harus jelas & menarik</div>
+        <div class="info">📄 Konten isi artikel blog</div>
+        <div class="info">🖼 Upload gambar biar lebih menarik</div>
+        <div class="info">💡 Blog bagus = SEO naik 🚀</div>
+      </div>
+    </div>
+  </div>
+
+</div>
 </form>
+</div>
 @endsection

@@ -329,7 +329,7 @@
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
                     <path d="M2 3h9a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm4.5 3.5L11 4H2l4.5 2.5z" fill="currentColor"/>
                 </svg>
-                <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82c1e3f6e7f0ebece5c0f7ebebefc2e5efe3ebeeace1edef">[email&#160;protected]</a>
+                dapurbuiim@gmail.com
             </span>
         </div>
         <div class="tb-right">
