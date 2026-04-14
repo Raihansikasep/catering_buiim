@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class OrderSchedule extends Model {
     use HasFactory;
 
-    protected $table = 'order_schedule'; 
+    protected $table = 'order_schedules';
     protected $fillable = ['order_id','schedule_date','status'];
 
     public function order() {

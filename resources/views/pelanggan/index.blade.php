@@ -630,10 +630,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
     {{-- Slides --}}
     <div class="hero-slides">
         <div class="hero-slide active">
-            <img src="img/8e1e17f5f76a43bcb1fea0cc4ff951e1.jpg" alt="Masakan Bu Iim" loading="eager">
+            <img src="img/catering lunch box (4).jpg" alt="Masakan Bu Iim" loading="eager">
         </div>
         <div class="hero-slide">
-            <img src="img/catering lunch box (4).jpg" alt="Catering Bu Iim" loading="lazy">
+            <img src="img/8e1e17f5f76a43bcb1fea0cc4ff951e1.jpg" alt="Catering Bu Iim" loading="lazy">
         </div>
     </div>
 
@@ -981,53 +981,63 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
 </section>
 {{-- Masukkan Script ini di bagian paling bawah sebelum @endsection --}}
 <script>
-function filterHome(catId, btn) {
-    // Ubah status tombol aktif
-    document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    // Gunakan let atau bungkus dalam satu scope agar tidak error "Identifier has already been declared"
+    let current = 0;
+    let timer;
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
 
-    // Filter produk
-    const items = document.querySelectorAll('.product-item-home');
-    items.forEach(item => {
-        if (catId === 'all' || item.getAttribute('data-cat') === catId) {
-            item.style.display = 'flex';
-        } else {
-            item.style.display = 'none';
-        }
+    // ── Fungsi Carousel ──
+    function goSlide(idx) {
+        if (!slides.length) return; // Guard clause jika slide tidak ada
+
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+
+        current = (idx + slides.length) % slides.length;
+
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        resetTimer();
+    }
+
+    function stepSlide(dir) {
+        goSlide(current + dir);
+    }
+
+    function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goSlide(current + 1), 5000);
+    }
+
+    // ── Fungsi Filter Produk ──
+    function filterHome(catId, btn) {
+        document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const items = document.querySelectorAll('.product-item-home');
+        items.forEach(item => {
+            if (catId === 'all' || item.getAttribute('data-cat') == catId) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // ── Inisialisasi saat DOM Ready ──
+    document.addEventListener('DOMContentLoaded', () => {
+        // Jalankan timer pertama kali
+        resetTimer();
+
+        // ── Scroll Reveal (Hanya satu deklarasi IO) ──
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if(e.isIntersecting) e.target.classList.add('on');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     });
-}
-
-// Pastikan IntersectionObserver tetap jalan untuk animasi reveal
-const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on') });
-}, {threshold: .1});
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-</script>
-<script>
-// ── Carousel ──
-const slides = document.querySelectorAll('.hero-slide');
-const dots   = document.querySelectorAll('.hero-dot');
-let current  = 0, timer;
-
-function goSlide(idx) {
-    slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = (idx + slides.length) % slides.length;
-    slides[current].classList.add('active');
-    dots[current].classList.add('active');
-    resetTimer();
-}
-function stepSlide(dir) { goSlide(current + dir); }
-function resetTimer() {
-    clearInterval(timer);
-    timer = setInterval(() => goSlide(current + 1), 5000);
-}
-resetTimer();
-
-// ── Scroll reveal ──
-const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on') });
-}, { threshold:.1, rootMargin:'0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 @endsection

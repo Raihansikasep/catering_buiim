@@ -84,7 +84,7 @@ class CheckoutController extends Controller
                 foreach ($item['addons'] as $addon) {
                     OrderAddon::create([
                         'order_id'      => $order->id,
-                        'menu_addon_id' => $addon['id'],
+                        'addon_id' => $addon['id'],
                         'price'         => $addon['price'],
                     ]);
                 }

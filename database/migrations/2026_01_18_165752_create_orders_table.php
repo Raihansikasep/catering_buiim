@@ -1,35 +1,35 @@
-<?php
+    <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('menu_variant_id')->constrained()->onDelete('cascade');
-            $table->string('customer_name');
-            $table->string('customer_phone');
-            $table->text('customer_address');
-            $table->integer('quantity');
-            $table->date('order_date');
-            $table->enum('status', ['menunggu','sudah_bayar','sedang_diproses','siap_dikirim','selesai'])->default('menunggu');
-            $table->decimal('total_price', 10, 2);
-            $table->text('notes')->nullable();
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    return new class extends Migration
     {
-        Schema::dropIfExists('orders');
-    }
-};
+        /**
+         * Run the migrations.
+         */
+        public function up(): void {
+            Schema::create('orders', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('menu_variant_id')->constrained()->onDelete('cascade');
+                $table->string('customer_name');
+                $table->string('customer_phone');
+                $table->text('customer_address');
+                $table->integer('quantity');
+                $table->date('order_date');
+                $table->enum('status', ['menunggu','sudah_bayar','sedang_diproses','siap_dikirim','selesai'])->default('menunggu');
+                $table->decimal('total_price', 10, 2);
+                $table->text('notes')->nullable();
+                $table->timestamps();
+            });
+        }
+
+        /**
+         * Reverse the migrations.
+         */
+        public function down(): void
+        {
+            Schema::dropIfExists('orders');
+        }
+    };
