@@ -68,15 +68,7 @@
         </a>
       </li>
 
-      <li class="mt-0.5 w-full">
-        <a class="{{ request()->routeIs('admin.menu-items.*') ? 'bg-blue-500/10 font-semibold' : '' }} py-2.7 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 text-slate-700 transition-colors"
-           href="{{ route('admin.menu-items.index') }}">
-          <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-            <i class="relative top-0 text-sm leading-normal text-emerald-500 ni ni-align-left-2"></i>
-          </div>
-          <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Menu Items</span>
-        </a>
-      </li>
+      
 
       <li class="mt-0.5 w-full">
         <a class="{{ request()->routeIs('admin.menu-addons.*') ? 'bg-blue-500/10 font-semibold' : '' }} py-2.7 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 text-slate-700 transition-colors"

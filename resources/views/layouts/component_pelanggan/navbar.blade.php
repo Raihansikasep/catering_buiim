@@ -390,7 +390,13 @@
                     Produk
                 </a>
             </li>
-            <li class="nav-dropdown">
+            <li>
+                <a href="{{ route('blog') }}"
+                   class="nav-lnk {{ request()->routeIs('blog') ? 'active' : '' }}">
+                    Blog
+                </a>
+            </li>
+            <!-- <li class="nav-dropdown">
                 <a href="#" class="nav-lnk {{ request()->routeIs('blog', 'testimonial') ? 'active' : '' }}">
                     Halaman <span class="chevron">▾</span>
                 </a>
@@ -401,14 +407,8 @@
                             Blog
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('testimonial') }}"
-                           class="{{ request()->routeIs('testimonial') ? 'active' : '' }}">
-                            Ulasan Pelanggan
-                        </a>
-                    </li>
                 </ul>
-            </li>
+            </li> -->
             <li>
                 <a href="{{ route('contact') }}"
                    class="nav-lnk {{ request()->routeIs('contact') ? 'active' : '' }}">

@@ -857,7 +857,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
 </section>
 
 {{-- TESTIMONIALS --}}
-<section class="testi-sec">
+<!-- <section class="testi-sec">
     <div class="container-main">
         <div class="sec-head reveal">
             <div>
@@ -904,7 +904,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 {{-- BLOG --}}
 <section class="blog-sec">
