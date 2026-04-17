@@ -16,12 +16,12 @@
                     dan higienis untuk keluarga dan kebutuhan Anda.
                 </p>
 
-                <div class="d-flex mt-3">
+                <!-- <div class="d-flex mt-3">
                     <a class="social-icon me-2" href="#"><i class="fab fa-facebook-f"></i></a>
                     <a class="social-icon me-2" href="#"><i class="fab fa-instagram"></i></a>
                     <a class="social-icon me-2" href="#"><i class="fab fa-whatsapp"></i></a>
                     <a class="social-icon" href="#"><i class="fab fa-youtube"></i></a>
-                </div>
+                </div> -->
             </div>
 
             <!-- KONTAK -->

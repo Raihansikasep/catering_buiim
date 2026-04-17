@@ -333,24 +333,7 @@
             </span>
         </div>
         <div class="tb-right">
-            <span class="tb-soc-label">Ikuti Kami:</span>
-            <a href="#" class="tb-soc" aria-label="Facebook">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M8 1H6.5C5.12 1 4 2.12 4 3.5V5H2.5v2H4v4h2V7h1.5L8 5H6V3.5c0-.28.22-.5.5-.5H8V1z" fill="currentColor"/>
-                </svg>
-            </a>
-            <a href="#" class="tb-soc" aria-label="Instagram">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <rect x="1.5" y="1.5" width="9" height="9" rx="2.5" stroke="currentColor" stroke-width="1.2"/>
-                    <circle cx="6" cy="6" r="2" stroke="currentColor" stroke-width="1.2"/>
-                    <circle cx="8.7" cy="3.3" r=".6" fill="currentColor"/>
-                </svg>
-            </a>
-            <a href="#" class="tb-soc" aria-label="Twitter/X">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M2 2l3.5 4L2 10h1.2l2.9-3.3L9 10h2L7.2 5.8 11 2H9.8L6.7 5.1 4 2H2z" fill="currentColor"/>
-                </svg>
-            </a>
+            <span class="tb-soc-label">Buka Sekarang (08:00 - 20:00)</span>
         </div>
     </div>
 </div>

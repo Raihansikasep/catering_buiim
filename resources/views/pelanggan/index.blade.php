@@ -32,113 +32,253 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
 .container-main{max-width:1280px;margin:0 auto;padding:0 48px}
 @media(max-width:768px){.container-main{padding:0 20px}}
 
-/* ── HERO CAROUSEL ── */
-.hero{
-    position:relative;
-    height:100vh;min-height:560px;
-    overflow:hidden;
+:root {
+    --mint: #a8d5a2;
+    --forest: #0a160c;
+    --glass: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
 }
 
-/* slides */
-.hero-slides{
-    position:absolute;inset:0;
-    width:100%;height:100%;
-}
-.hero-slide{
-    position:absolute;inset:0;
-    opacity:0;transition:opacity 1.2s ease;
-    will-change:opacity;
-}
-.hero-slide.active{opacity:1}
-.hero-slide img{
-    width:100%;height:100%;object-fit:cover;
-    display:block;
-    transform:scale(1.06);
-    transition:transform 8s ease;
-}
-.hero-slide.active img{transform:scale(1)}
-
-/* dark overlay + vignette */
-.hero-overlay{
-    position:absolute;inset:0;
-    background:linear-gradient(
-        to bottom,
-        rgba(10,22,12,.25) 0%,
-        rgba(10,22,12,.55) 50%,
-        rgba(10,22,12,.78) 100%
-    );
-    z-index:2;
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 650px;
+    background: #000;
+    overflow: hidden;
 }
 
-/* content */
-.hero-content{
-    position:absolute;inset:0;z-index:3;
-    display:flex;flex-direction:column;
-    align-items:center;justify-content:center;
-    text-align:center;
-    padding:0 24px;
+/* Slides & Ken Burns Effect */
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.hero-tag{
-    display:inline-flex;align-items:center;gap:8px;
-    background:rgba(168,213,162,.13);
-    border:1px solid rgba(168,213,162,.25);
-    padding:7px 18px;border-radius:100px;
-    font-size:.71rem;font-weight:600;letter-spacing:.13em;
-    text-transform:uppercase;color:var(--mint);
-    margin-bottom:28px;
-    opacity:0;animation:fadeUp .8s .3s forwards;
-}
-.hero-tag .blink{
-    width:5px;height:5px;border-radius:50%;
-    background:var(--mint);animation:blink 2s ease infinite;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero-slide.active { opacity: 1; z-index: 1; }
 
-.hero-h1{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(2.6rem,7vw,5.6rem);
-    font-weight:700;line-height:1.06;
-    color:#fff;letter-spacing:-.025em;
-    margin-bottom:22px;
-    max-width:780px;
-    opacity:0;animation:fadeUp .8s .5s forwards;
-}
-.hero-h1 em{font-style:italic;color:var(--mint)}
-
-.hero-p{
-    color:rgba(255,255,255,.55);
-    font-size:clamp(.88rem,2vw,1.05rem);line-height:1.85;
-    max-width:520px;margin-bottom:44px;
-    font-weight:300;
-    opacity:0;animation:fadeUp .8s .7s forwards;
+.hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.15); /* Start scale */
+    transition: transform 10s linear;
 }
 
-.hero-actions{
-    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-    justify-content:center;
-    opacity:0;animation:fadeUp .8s .9s forwards;
+.hero-slide.active img {
+    transform: scale(1); /* End scale */
 }
 
-.btn-hero-main{
-    display:inline-flex;align-items:center;gap:10px;
-    background:var(--mint);color:var(--forest);
-    padding:15px 38px;border-radius:100px;
-    font-size:.875rem;font-weight:600;
-    text-decoration:none;transition:all .25s;
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%);
+    z-index: 2;
 }
-.btn-hero-main:hover{background:#fff;transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.25)}
 
-.btn-hero-ghost{
-    display:inline-flex;align-items:center;gap:8px;
-    color:rgba(255,255,255,.6);
-    font-size:.875rem;font-weight:500;
-    text-decoration:none;padding:15px 0;
-    border-bottom:1px solid rgba(255,255,255,.2);
-    transition:all .2s;
+/* Content Layout */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
 }
-.btn-hero-ghost:hover{color:#fff;border-color:rgba(255,255,255,.5)}
+
+.hero-container {
+    max-width: 900px;
+    text-align: center;
+}
+
+.hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--glass);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: var(--mint);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-h1 em {
+    color: var(--mint);
+    font-style: italic;
+    font-weight: 500;
+}
+
+.hero-p {
+    color: rgba(255,255,255,0.7);
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    max-width: 600px;
+    margin: 0 auto 45px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Actions */
+.hero-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.btn-hero-main {
+    background: var(--mint);
+    color: var(--forest);
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.btn-hero-main:hover {
+    background: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(168, 213, 162, 0.3);
+}
+
+.btn-hero-ghost {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    border-bottom: 2px solid var(--glass-border);
+    padding: 10px 0;
+    transition: 0.3s;
+}
+
+.btn-hero-ghost:hover {
+    border-color: var(--mint);
+    color: var(--mint);
+}
+
+/* Stats Bar */
+.hero-stats-container {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+    z-index: 4;
+    padding: 0 24px;
+}
+
+.hero-stats-bar {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 25px;
+}
+
+.hero-stat {
+    text-align: center;
+    border-right: 1px solid var(--glass-border);
+}
+
+.hero-stat:last-child { border: none; }
+
+.hero-stat .n {
+    color: var(--mint);
+    font-size: 1.8rem;
+    font-weight: 800;
+    font-family: 'Playfair Display', serif;
+}
+
+.hero-stat .l {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+/* Navigation */
+.hero-nav-wrapper {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    pointer-events: none;
+}
+
+.hero-arrows {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.hero-arrow {
+    pointer-events: auto;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-arrow:hover { background: var(--mint); }
+.hero-arrow:hover svg { stroke: var(--forest); }
+
+/* Animations */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero-stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .hero-stat:nth-child(2) { border-right: none; }
+    .hero-actions { flex-direction: column; gap: 10px; }
+    .hero-nav-wrapper { display: none; } /* Hide arrows on mobile for cleaner look */
+    .hero-h1 { margin-bottom: 15px; }
+    .hero-stats-container { bottom: 20px; }
+}
 
 /* stats bar */
 .hero-stats-bar{
@@ -219,89 +359,215 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
 .marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--mint);opacity:.6}
 
 /* ── ABOUT ── */
-.about-sec{padding:112px 0;background:var(--warm-white)}
-.about-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:80px;align-items:center;
+:root {
+    --forest: #1b4332;
+    --forest-mid: #2d6a4f;
+    --leaf: #40916c;
+    --mint: #b7e4c7;
+    --mint-pale: #e9f5db;
+    --warm-white: #fcfaf7;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
 }
-@media(max-width:1024px){.about-grid{grid-template-columns:1fr;gap:56px}}
 
-.about-imgs{
-    display:grid;
-    grid-template-columns:3fr 2fr;
-    grid-template-rows:auto auto;
-    gap:12px;
-    position:relative;
+.about-sec {
+    padding: 120px 0;
+    background: var(--warm-white);
+    overflow: hidden;
 }
-.img-tall{
-    grid-column:1;grid-row:1/span 2;
-    border-radius:20px;overflow:hidden;
-    aspect-ratio:3/4;
-}
-.img-short{
-    grid-column:2;grid-row:1;
-    border-radius:16px;overflow:hidden;
-    aspect-ratio:4/3;
-}
-.img-badge{
-    grid-column:2;grid-row:2;
-    background:var(--forest);
-    border-radius:16px;
-    padding:24px 20px;
-    display:flex;flex-direction:column;gap:4px;justify-content:center;
-}
-.img-badge .big{
-    font-family:'Playfair Display',serif;
-    font-size:2.6rem;font-weight:700;
-    color:var(--mint);line-height:1;
-}
-.img-badge .sm{font-size:.75rem;color:rgba(255,255,255,.45);line-height:1.5}
-.img-tall img,.img-short img{
-    width:100%;height:100%;object-fit:cover;
-    transition:transform .6s ease;display:block;
-}
-.img-tall:hover img,.img-short:hover img{transform:scale(1.04)}
 
-.eyebrow{
-    display:inline-flex;align-items:center;gap:8px;
-    font-size:.68rem;font-weight:600;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--leaf);
-    margin-bottom:16px;
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 100px;
+    align-items: center;
 }
-.eyebrow::before{content:'';display:block;width:24px;height:1.5px;background:var(--leaf)}
 
-.sec-title{
-    font-family:'Playfair Display',serif;
-    font-size:clamp(1.9rem,3.2vw,2.9rem);
-    font-weight:700;line-height:1.18;
-    color:var(--ink);letter-spacing:-.02em;
-    margin-bottom:18px;
+/* Image Composition */
+.about-imgs {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    position: relative;
 }
-.sec-title em{font-style:italic;color:var(--forest-mid)}
-.sec-p{color:var(--ink-soft);font-size:.91rem;line-height:1.9;margin-bottom:12px;font-weight:300}
 
-.checks{list-style:none;margin:28px 0 40px;display:flex;flex-direction:column;gap:11px}
-.checks li{
-    display:flex;align-items:center;gap:12px;
-    font-size:.875rem;font-weight:500;color:var(--ink-mid);
+.img-tall {
+    grid-column: 1 / 8;
+    grid-row: 1 / 11;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
-.chk{
-    width:20px;height:20px;border-radius:50%;
-    background:var(--mint-pale);flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;
-}
-.chk svg{width:10px;height:10px}
 
-.btn-link{
-    display:inline-flex;align-items:center;gap:9px;
-    color:var(--forest-mid);font-size:.875rem;font-weight:600;
-    text-decoration:none;
-    padding-bottom:3px;
-    border-bottom:1.5px solid var(--forest-mid);
-    transition:all .2s;
+.img-short {
+    grid-column: 6 / 11;
+    grid-row: 2 / 7;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 8px solid var(--warm-white);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    z-index: 2;
 }
-.btn-link:hover{color:var(--leaf);border-color:var(--leaf);gap:14px}
+
+.img-badge {
+    grid-column: 7 / 10;
+    grid-row: 7 / 10;
+    background: var(--forest);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 3;
+    color: white;
+    box-shadow: 0 10px 20px rgba(27, 67, 50, 0.3);
+}
+
+.img-badge .big {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--mint);
+    line-height: 1;
+}
+
+.img-badge .sm {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+.img-tall img, .img-short img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.img-tall:hover img, .img-short:hover img {
+    transform: scale(1.08);
+}
+
+/* Typography & Content */
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--leaf);
+    margin-bottom: 24px;
+}
+
+.eyebrow::before {
+    content: '';
+    width: 30px;
+    height: 2px;
+    background: var(--leaf);
+}
+
+.sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 24px;
+}
+
+.sec-title em {
+    font-style: italic;
+    color: var(--forest-mid);
+    font-weight: 400;
+}
+
+.sec-p {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+/* List Style */
+.checks {
+    list-style: none;
+    margin: 32px 0 48px;
+    display: grid;
+    gap: 16px;
+}
+
+.checks li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    transition: transform 0.3s ease;
+}
+
+.checks li:hover {
+    transform: translateX(5px);
+}
+
+.chk {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--mint-pale);
+    color: var(--forest-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Button */
+.btn-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--forest-mid);
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+    padding: 8px 0;
+    transition: all 0.3s;
+}
+
+.btn-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 70%;
+    height: 2px;
+    background: var(--forest-mid);
+    transition: width 0.3s;
+}
+
+.btn-link:hover {
+    gap: 18px;
+    color: var(--leaf);
+}
+
+.btn-link:hover::after {
+    width: 100%;
+    background: var(--leaf);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 64px;
+    }
+    .about-sec { padding: 80px 0; }
+    .img-badge { padding: 15px; }
+}
 
 /* ── FEATURES ── */
 .features-sec{padding:100px 0;background:var(--clay)}
@@ -626,7 +892,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
 
 {{-- HERO CAROUSEL --}}
 <section class="hero">
-
     {{-- Slides --}}
     <div class="hero-slides">
         <div class="hero-slide active">
@@ -637,53 +902,59 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
         </div>
     </div>
 
-    {{-- Overlay --}}
+    {{-- Dark Overlay --}}
     <div class="hero-overlay"></div>
 
     {{-- Center Content --}}
     <div class="hero-content">
-        <div class="hero-tag"><span class="blink"></span> Masakan Rumahan Autentik</div>
-        <h1 class="hero-h1">
-            Hidangan Penuh <em>Kehangatan</em><br>untuk Keluarga Anda
-        </h1>
-        <p class="hero-p">
-            Disiapkan dari bahan segar pilihan dengan resep turun-temurun — setiap suapan membawa rasa rumah yang sesungguhnya.
-        </p>
-        <div class="hero-actions">
-            <a href="{{ route('product') }}" class="btn-hero-main">
-                Lihat Menu
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <a href="{{ route('about') }}" class="btn-hero-ghost">
-                Tentang Kami
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
+        <div class="hero-container">
+            <div class="hero-tag">
+                <span class="blink"></span> 
+                <span>Masakan Rumahan Autentik</span>
+            </div>
+            
+            <h1 class="hero-h1">
+                Hidangan Penuh <em>Kehangatan</em><br>untuk Keluarga Anda
+            </h1>
+            <div class="hero-actions">
+                <a href="{{ route('product') }}" class="btn-hero-main">
+                    Lihat Menu
+                    <svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a href="{{ route('about') }}" class="btn-hero-ghost">
+                    Tentang Kami
+                    <svg width="16" height="16" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
         </div>
     </div>
 
-    {{-- Dots --}}
-    <div class="hero-dots">
-        <button class="hero-dot active" onclick="goSlide(0)"></button>
-        <button class="hero-dot" onclick="goSlide(1)"></button>
-        <button class="hero-dot" onclick="goSlide(2)"></button>
+    {{-- Navigation: Arrows & Dots --}}
+    <div class="hero-nav-wrapper">
+        <div class="hero-arrows">
+            <button class="hero-arrow prev" onclick="stepSlide(-1)" aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="hero-arrow next" onclick="stepSlide(1)" aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+        </div>
+        <div class="hero-dots">
+            <button class="hero-dot active" onclick="goSlide(0)"></button>
+            <button class="hero-dot" onclick="goSlide(1)"></button>
+            <button class="hero-dot" onclick="goSlide(2)"></button>
+        </div>
     </div>
 
-    {{-- Arrows --}}
-    <button class="hero-arrow prev" onclick="stepSlide(-1)" aria-label="Previous">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-    <button class="hero-arrow next" onclick="stepSlide(1)" aria-label="Next">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-
-    {{-- Stats bar --}}
-    <div class="hero-stats-bar">
-        <div class="hero-stat"><div class="n">5+</div><div class="l">Tahun Berpengalaman</div></div>
-        <div class="hero-stat"><div class="n">500+</div><div class="l">Pelanggan Puas</div></div>
-        <div class="hero-stat"><div class="n">30+</div><div class="l">Pilihan Menu</div></div>
-        <div class="hero-stat"><div class="n">100%</div><div class="l">Bahan Segar</div></div>
+    {{-- Stats Bar (Floating) --}}
+    <div class="hero-stats-container">
+        <div class="hero-stats-bar">
+            <div class="hero-stat"><div class="n">5+</div><div class="l">Tahun Pengalaman</div></div>
+            <div class="hero-stat"><div class="n">500+</div><div class="l">Pelanggan Puas</div></div>
+            <div class="hero-stat"><div class="n">30+</div><div class="l">Pilihan Menu</div></div>
+            <div class="hero-stat"><div class="n">100%</div><div class="l">Bahan Segar</div></div>
+        </div>
     </div>
-
 </section>
 
 {{-- MARQUEE --}}
@@ -706,39 +977,57 @@ body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--i
     <div class="container-main">
         <div class="about-grid">
             <div class="about-imgs reveal">
-                <div class="img-tall"><img src="img/nasbox (1).jpg" alt="Nasi Kotak Bu Iim"></div>
-                <div class="img-short"><img src="img/catering lunch box (4).jpg" alt="Catering"></div>
+                <div class="img-tall">
+                    <img src="img/nasbox (1).jpg" alt="Nasi Kotak Bu Iim">
+                </div>
+                <div class="img-short">
+                    <img src="img/catering lunch box (4).jpg" alt="Catering">
+                </div>
                 <div class="img-badge">
-                    <div class="big">2019</div>
-                    <div class="sm">Berdiri & melayani<br>dengan sepenuh hati</div>
+                    <span class="big">2019</span>
+                    <span class="sm">Tahun<br>Didirikannya</span>
                 </div>
             </div>
+
             <div class="reveal d2">
                 <div class="eyebrow">Tentang Kami</div>
                 <h2 class="sec-title">Masak dengan <em>Hati</em>,<br>Sajikan yang Terbaik</h2>
-                <p class="sec-p">Dapur Bu Iim hadir dengan komitmen sederhana — menghadirkan cita rasa rumahan yang autentik, dibuat dari bahan segar dan proses memasak yang higienis setiap harinya.</p>
-                <p class="sec-p">Kepuasan Anda bukan sekadar target, melainkan alasan kami terus berkarya di dapur.</p>
+                
+                <div class="content-text">
+                    <p class="sec-p">Dapur Bu Iim hadir dengan komitmen sederhana — menghadirkan cita rasa rumahan yang autentik, dibuat dari bahan segar dan proses memasak yang higienis setiap harinya.</p>
+                    <p class="sec-p">Kepuasan Anda bukan sekadar target, melainkan alasan kami terus berkarya di dapur.</p>
+                </div>
+
                 <ul class="checks">
                     <li>
-                        <div class="chk"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#4B8A55" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                        Bahan segar pilihan dari supplier terpercaya
+                        <div class="chk">
+                            <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <span>Bahan segar pilihan dari supplier terpercaya</span>
                     </li>
                     <li>
-                        <div class="chk"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#4B8A55" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                        Resep autentik warisan keluarga
+                        <div class="chk">
+                            <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <span>Resep autentik warisan keluarga</span>
                     </li>
                     <li>
-                        <div class="chk"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#4B8A55" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                        Proses higienis &amp; standar kebersihan tinggi
+                        <div class="chk">
+                            <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <span>Proses higienis & standar kebersihan tinggi</span>
                     </li>
                     <li>
-                        <div class="chk"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="#4B8A55" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                        Rasa konsisten lezat setiap hidangan
+                        <div class="chk">
+                            <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <span>Rasa konsisten lezat setiap hidangan</span>
                     </li>
                 </ul>
+
                 <a href="{{ route('about') }}" class="btn-link">
-                    Baca Selengkapnya
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>Baca Selengkapnya</span>
+                    <svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
             </div>
         </div>
